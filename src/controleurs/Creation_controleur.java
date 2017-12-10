@@ -13,7 +13,7 @@ import javax.swing.JTextField;
  */
 public class Creation_controleur {
 
-    public boolean creerPdt(String nom, JTextField prixUnit, int qteStock) {
+    public boolean creerPdt(JTextField nom, JTextField prixUnit, JTextField qteStock) {
         boolean prixValide;
         prixValide = verifierPrix(prixUnit);
         if(prixValide == true){
@@ -26,7 +26,7 @@ public class Creation_controleur {
         float prix;
         try {
             prix = Float.parseFloat(prixProduit.getText());
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
         if (prix < 0) {

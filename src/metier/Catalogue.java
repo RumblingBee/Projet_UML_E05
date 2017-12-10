@@ -14,16 +14,17 @@ import java.util.List;
  */
 public class Catalogue implements I_Catalogue {
 
-    private ArrayList<Produit> Produits;
+    private ArrayList<I_Produit> Produits;
 
     @Override
     public boolean addProduit(I_Produit produit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Produits.add(produit);
     }
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Produit pdt=new Produit(qte, nom, prix);
+        return Produits.add(pdt);
     }
 
     @Override
