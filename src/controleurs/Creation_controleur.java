@@ -6,18 +6,27 @@
 package controleurs;
 
 import javax.swing.JTextField;
+import metier.Catalogue;
+import metier.I_Catalogue;
 
 /**
  *
  * @author prax
  */
 public class Creation_controleur {
+    
+    private I_Catalogue Produits=new Catalogue();
 
-    public boolean creerPdt(String nom, JTextField prixUnit, int qteStock) {
+    public boolean creerPdt(JTextField sNom, JTextField sPrixUnit, JTextField sQteStock) {
+        String nom=sNom.getText();
         boolean prixValide;
-        prixValide = verifierPrix(prixUnit);
+        prixValide = verifierPrix(sPrixUnit);
         if(prixValide == true){
-            
+            if(produitExiste(nom)==false){
+                float prix = Float.parseFloat(sPrixUnit.getText());
+                int qte=Integer.parseInt(sQteStock.getText());
+                    return(Produits.addProduit(nom, prix, qte));
+            }
         }
         return false;
     }
@@ -26,7 +35,7 @@ public class Creation_controleur {
         float prix;
         try {
             prix = Float.parseFloat(prixProduit.getText());
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
         if (prix < 0) {
@@ -34,6 +43,18 @@ public class Creation_controleur {
         } else {
             return true;
         }
+    }
+    
+    public boolean produitExiste(String nom){
+        boolean res=false;
+        String[] nomPdt=Produits.getNomProduits();
+        int i=0;
+        while(i<nomPdt.length && res==false){
+            if(nomPdt[i].equals(nom)){
+                res=true;
+            }
+        }
+        return res;
     }
 
 }
