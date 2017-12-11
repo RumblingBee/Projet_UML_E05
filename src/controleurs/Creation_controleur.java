@@ -25,6 +25,7 @@ public class Creation_controleur {
             if(produitExiste(nom)==false){
                 float prix = Float.parseFloat(sPrixUnit.getText());
                 int qte=Integer.parseInt(sQteStock.getText());
+                    System.out.println(Produits.toString());
                     return(Produits.addProduit(nom, prix, qte));
             }
         }
