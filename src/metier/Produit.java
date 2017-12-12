@@ -67,4 +67,5 @@ public class Produit implements I_Produit {
         return getPrixUnitaireTTC()*quantiteStock;
     }
     
+    
 }

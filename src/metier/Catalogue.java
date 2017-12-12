@@ -22,8 +22,6 @@ public class Catalogue implements I_Catalogue {
     public boolean addProduit(I_Produit produit) {
        System.out.println("Creation d'un nouveau produit ...");
      Produits.add(produit);
-     System.out.println("Produit créé avec le nom" +Produits.get(0).getNom());
-      System.out.println("Produit créé avec le num " +Produits.size());
         return true;
     }
 
@@ -36,22 +34,30 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public int addProduits(List<I_Produit> l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int nbAjout = 0;
+        for(int i = l.size();i>=0;i--){
+          if(this.addProduit( l.get(i))){
+           nbAjout++;
+          }
+        }
+        
+        return nbAjout;
     }
 
     @Override
     public boolean removeProduit(String nom) {
         boolean hasBeenRemoved = false;
         int i = 0;
-        while(i <= Produits.size() && hasBeenRemoved == false){
-            if(Produits.get(i).getNom() == nom){
+        while(i < Produits.size() && hasBeenRemoved == false){
+            if(Produits.get(i).getNom().equals(nom)){
                 Produits.remove(i);
                 hasBeenRemoved = true;
-             
+            
             }
             else{
-            i++;
+                i++;
             }
+            
          }
         
         return hasBeenRemoved;
@@ -72,7 +78,7 @@ public class Catalogue implements I_Catalogue {
         
         String nomProduits[] = new String[Produits.size()]; 
 
-        System.out.print("Test" +Produits.size() );
+      
      for (int i = 0; i< Produits.size(); i++){
              if(Produits.size() == 0){
            System.out.println("Vide!");
@@ -81,27 +87,21 @@ public class Catalogue implements I_Catalogue {
           nomProduits[i] = Produits.get(i).getNom();
              }
         }
-       
-       /*    
-            Produit p = (Produit)Produits.get(0);
-
-       }
-       else{
-           
-          
-       }
-        */
         return nomProduits;
     }
 
     @Override
     public double getMontantTotalTTC() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       double prixTTC = 0;
+       for(int i = Produits.size(); i>= 0; i--){
+           prixTTC = prixTTC + (Produits.get(i).getPrixUnitaireTTC()*Produits.get(i).getQuantite());
+       }
+       return prixTTC;
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Produits.clear();
     }
 
 }
