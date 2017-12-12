@@ -14,16 +14,23 @@ import java.util.List;
  */
 public class Catalogue implements I_Catalogue {
 
-    private ArrayList<I_Produit> Produits;
+    private static List<I_Produit> Produits = new ArrayList<>();
+   
 
+  
     @Override
     public boolean addProduit(I_Produit produit) {
-        return Produits.add(produit);
+       System.out.println("Creation d'un nouveau produit ...");
+     Produits.add(produit);
+     System.out.println("Produit créé avec le nom" +Produits.get(0).getNom());
+      System.out.println("Produit créé avec le num " +Produits.size());
+        return true;
     }
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
         Produit pdt=new Produit(qte, nom, prix);
+        Produits.add(pdt);
         return Produits.add(pdt);
     }
 
@@ -34,7 +41,20 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean removeProduit(String nom) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean hasBeenRemoved = false;
+        int i = 0;
+        while(i <= Produits.size() && hasBeenRemoved == false){
+            if(Produits.get(i).getNom() == nom){
+                Produits.remove(i);
+                hasBeenRemoved = true;
+             
+            }
+            else{
+            i++;
+            }
+         }
+        
+        return hasBeenRemoved;
     }
 
     @Override
@@ -49,11 +69,28 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public String[] getNomProduits() {
+        
+        String nomProduits[] = new String[Produits.size()]; 
 
-        String nomProduits[] = new String[Produits.size()];
-        for (int i = 0; i< Produits.size(); i++){
-            nomProduits[i] = Produits.get(i).getNom();
+        System.out.print("Test" +Produits.size() );
+     for (int i = 0; i< Produits.size(); i++){
+             if(Produits.size() == 0){
+           System.out.println("Vide!");
+       } 
+             else{
+          nomProduits[i] = Produits.get(i).getNom();
+             }
         }
+       
+       /*    
+            Produit p = (Produit)Produits.get(0);
+
+       }
+       else{
+           
+          
+       }
+        */
         return nomProduits;
     }
 

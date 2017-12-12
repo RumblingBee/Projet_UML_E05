@@ -3,6 +3,8 @@ package uml.e05.monestier.dezette.vues;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import metier.Catalogue;
+import metier.Produit;
 
 
 
@@ -70,7 +72,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 /* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
-		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
+		Catalogue c1 = new Catalogue();
+String[] tabProduits = new String[1];
+tabProduits = c1.getNomProduits();
+                
 /* M�me chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
@@ -111,6 +116,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	
 	public static void main(String[] args) {
 		new FenetrePrincipale();
+                
+            
 	}
 
 }

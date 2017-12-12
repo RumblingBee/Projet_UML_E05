@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class FenetreAchat extends JFrame implements ActionListener {
 
 	private JButton btAchat;
@@ -24,7 +25,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
-		contentPane.add(new JLabel("Quantit� achet�e"));
+		contentPane.add(new JLabel("Quantite achetee"));
 		contentPane.add(txtQuantite);
 		contentPane.add(btAchat);
 
@@ -34,7 +35,9 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+            
 		this.dispose();
+                
 	}
 
 }

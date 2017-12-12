@@ -8,6 +8,7 @@ package controleurs;
 import javax.swing.JTextField;
 import metier.Catalogue;
 import metier.I_Catalogue;
+import metier.Produit;
 
 /**
  *
@@ -15,20 +16,27 @@ import metier.I_Catalogue;
  */
 public class Creation_controleur {
     
-    private I_Catalogue Produits=new Catalogue();
+    private static I_Catalogue Produits;
+   
+    
 
     public boolean creerPdt(JTextField sNom, JTextField sPrixUnit, JTextField sQteStock) {
+        if(Produits == null){
+        Produits = new Catalogue();
+        System.out.println("Création d'un catalogue");
+        }
         String nom=sNom.getText();
         boolean prixValide;
         prixValide = verifierPrix(sPrixUnit);
         if(prixValide == true){
-            if(produitExiste(nom)==false){
+         if(produitExiste(nom)==false){
                 float prix = Float.parseFloat(sPrixUnit.getText());
                 int qte=Integer.parseInt(sQteStock.getText());
-                    return(Produits.addProduit(nom, prix, qte));
-            }
+                Produit p = new Produit(qte,nom,prix);
+                Produits.addProduit(p);
+         }
         }
-        return false;
+       return true;
     }
 
     public boolean verifierPrix(JTextField prixProduit) {
@@ -53,6 +61,7 @@ public class Creation_controleur {
             if(nomPdt[i].equals(nom)){
                 res=true;
             }
+            i++;
         }
         return res;
     }
