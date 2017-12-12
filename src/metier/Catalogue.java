@@ -50,9 +50,7 @@ public class Catalogue implements I_Catalogue {
         int i = 0;
         while(i < Produits.size() && hasBeenRemoved == false){
             if(Produits.get(i).getNom().equals(nom)){
-                Produits.remove(i);
-                hasBeenRemoved = true;
-            
+                hasBeenRemoved=Produits.remove(Produits.get(i));
             }
             else{
                 i++;

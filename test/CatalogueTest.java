@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import metier.Catalogue;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,6 +17,8 @@ import static org.junit.Assert.*;
  * @author prax
  */
 public class CatalogueTest {
+    
+    private Catalogue ct=new Catalogue();
     
     public CatalogueTest() {
     }
@@ -41,6 +44,7 @@ public class CatalogueTest {
     //
      @Test
      public void removeProduit() {
-         assertTrue(true);
+         ct.addProduit("Test",5,1);
+         assertTrue(ct.removeProduit("Test"));
      }
 }
