@@ -67,5 +67,11 @@ public class Produit implements I_Produit {
         return getPrixUnitaireTTC()*quantiteStock;
     }
     
+    @Override
+    public String toString(){
+        String sProduit = "";
+        sProduit =this.nom +" prix HT " + this.getPrixUnitaireHT() + " Prix TTC " + this.getPrixUnitaireTTC() +" quantité en stock " + this.getQuantite();
+        return sProduit;
+    }
     
 }

@@ -93,7 +93,7 @@ public class Catalogue implements I_Catalogue {
     @Override
     public double getMontantTotalTTC() {
        double prixTTC = 0;
-       for(int i = Produits.size(); i>= 0; i--){
+       for(int i = Produits.size()-1; i>= 0; i--){
            prixTTC = prixTTC + (Produits.get(i).getPrixUnitaireTTC()*Produits.get(i).getQuantite());
        }
        return prixTTC;
@@ -102,6 +102,16 @@ public class Catalogue implements I_Catalogue {
     @Override
     public void clear() {
         Produits.clear();
+    }
+    
+    @Override
+    public String toString(){
+        String sCatalogue="";
+        for(int i = Produits.size()-1; i>=0; i--){
+            sCatalogue = sCatalogue + Produits.get(i).toString() + System.lineSeparator();
+        }
+        sCatalogue = sCatalogue + System.lineSeparator() +" Montant total TTC du stock " + this.getMontantTotalTTC();
+        return sCatalogue;
     }
 
 }

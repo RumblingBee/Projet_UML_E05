@@ -80,7 +80,7 @@ tabProduits = c1.getNomProduits();
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage(c1.toString());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
