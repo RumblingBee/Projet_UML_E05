@@ -19,14 +19,18 @@ public class Catalogue implements I_Catalogue {
     @Override
     public boolean addProduit(I_Produit produit) {
         if (produit != null) {
-            if (verifierStock(produit.getQuantite())) {
-                if (verifierPrix(produit.getPrixUnitaireHT()) == true) {
-                    System.out.println("Creation d'un nouveau produit ...");
-                    Produits.add(produit);
-                    return true;
+            if(produitExiste(produit.getNom())){
+                return false;
+            }else{
+                if (verifierStock(produit.getQuantite())) {
+                    if (verifierPrix(produit.getPrixUnitaireHT()) == true) {
+                        System.out.println("Creation d'un nouveau produit ...");
+                        Produits.add(produit);
+                        return true;
+                    }
                 }
+                return false;
             }
-            return false;
         } else {
             return false;
         }
@@ -51,7 +55,7 @@ public class Catalogue implements I_Catalogue {
             return 0;
         } else {
             for (I_Produit p : l) {
-                if (verifierPrix(p.getPrixUnitaireHT()) == true) {
+                if ((verifierPrix(p.getPrixUnitaireHT()) == true) && (verifierStock(p.getQuantite())==true)) {
                     if (this.addProduit(p)) {
                         nbAjout++;
                     }
