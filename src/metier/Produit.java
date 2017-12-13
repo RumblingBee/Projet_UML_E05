@@ -14,9 +14,15 @@ public class Produit implements I_Produit {
     private int quantiteStock;
     private String nom;
     private double prixUnitaire;
-    private static double tauxTVA;
+    private static double tauxTVA = 0.2;
 
     public Produit(int quantiteStock, String nom, double prixUnitaire) {
+        this.quantiteStock = quantiteStock;
+        this.nom = nom;
+        this.prixUnitaire = prixUnitaire;
+    }
+    
+    public Produit(String nom, double prixUnitaire,int quantiteStock) {
         this.quantiteStock = quantiteStock;
         this.nom = nom;
         this.prixUnitaire = prixUnitaire;
@@ -59,7 +65,7 @@ public class Produit implements I_Produit {
 
     @Override
     public double getPrixUnitaireTTC() {
-        return prixUnitaire+(tauxTVA*prixUnitaire);
+        return prixUnitaire +(tauxTVA*prixUnitaire);
     }
 
     @Override

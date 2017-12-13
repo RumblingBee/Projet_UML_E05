@@ -22,6 +22,12 @@ public class CatalogueTest {
 //		cat.clear();
 	}
 	
+        @Test
+        public void testMontantTTC(){
+            I_Produit p1 = createProduit("Mars", 10, 1);
+		cat.addProduit(p1);
+                assertTrue(p1.getPrixStockTTC()==12);
+        }
 	@Test
 	public void testConstructeurCatalogue() {
 		assertNotNull("cr�er catalogue", cat);
@@ -660,6 +666,7 @@ public class CatalogueTest {
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 12.6, 1);
+                System.out.println("Test total");
 		assertEquals("montant TTC avec virgule ; 2 chiffres",135.12,cat.getMontantTotalTTC(),0);
 	}
 
