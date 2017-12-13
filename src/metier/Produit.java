@@ -21,6 +21,11 @@ public class Produit implements I_Produit {
         this.nom = nom;
         this.prixUnitaire = prixUnitaire;
     }
+       public Produit(String nom, double prixUnitaire, int quantiteStock) {
+        this.quantiteStock = quantiteStock;
+        this.nom = nom;
+        this.prixUnitaire = prixUnitaire;
+    }
 
     @Override
     public boolean ajouter(int qteAchetee) {

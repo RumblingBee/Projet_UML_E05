@@ -46,7 +46,7 @@ public class Creation_controleur {
         } catch (NumberFormatException e) {
             return false;
         }
-        if (prix < 0) {
+        if (prix <= 0) {
             return false;
         } else {
             return true;

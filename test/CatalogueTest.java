@@ -2,18 +2,14 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import metier.Catalogue;
-import metier.I_Catalogue;
-import metier.I_Produit;
-import metier.Produit;
-
+import metier.*;
 import org.junit.Before;
 import org.junit.Test;
 
 
 public class CatalogueTest {
 
-	   I_Catalogue cat;
+	I_Catalogue cat;
 	
 	@Before
 	public void setUp() {

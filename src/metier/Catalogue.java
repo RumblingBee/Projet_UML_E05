@@ -20,25 +20,36 @@ public class Catalogue implements I_Catalogue {
   
     @Override
     public boolean addProduit(I_Produit produit) {
-       System.out.println("Creation d'un nouveau produit ...");
-     Produits.add(produit);
-        return true;
-    }
+      if(verifierStock(produit.getQuantite())){    
+        if(verifierPrix(produit.getPrixUnitaireHT()) == true){
+            System.out.println("Creation d'un nouveau produit ...");
+             Produits.add(produit);
+             return true;
+        }
+      }
+        return false;
+        }
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
+      if(verifierStock(qte)){  
+       if(verifierPrix(prix) == true){
         Produit pdt=new Produit(qte, nom, prix);
         Produits.add(pdt);
         return Produits.add(pdt);
+       }}
+      return false;
     }
 
     @Override
     public int addProduits(List<I_Produit> l) {
         int nbAjout = 0;
         for(int i = l.size();i>=0;i--){
+         if(verifierPrix(l.get(i).getPrixUnitaireHT()) == true){
           if(this.addProduit( l.get(i))){
            nbAjout++;
           }
+         }
         }
         
         return nbAjout;
@@ -122,5 +133,26 @@ public class Catalogue implements I_Catalogue {
         I_Produit p=Produits.get(i);
         return p;
     }
+    
+        public boolean verifierPrix(double prixProduit) {
+        
+        try {
+            
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        if (prixProduit <= 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+        public boolean verifierStock(int pStock){
+            if(pStock <= 0){
+                return false;
+            }
+            
+            return true;
+        }
 
 }
