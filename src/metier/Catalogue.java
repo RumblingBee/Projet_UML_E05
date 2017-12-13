@@ -19,9 +19,9 @@ public class Catalogue implements I_Catalogue {
     @Override
     public boolean addProduit(I_Produit produit) {
         if (produit != null) {
-            if(produitExiste(produit.getNom())){
+            if (produitExiste(produit.getNom())) {
                 return false;
-            }else{
+            } else {
                 if (stockOk(produit.getQuantite())) {
                     if (prixOk(produit.getPrixUnitaireHT()) == true) {
                         Produits.add(produit);
@@ -37,12 +37,10 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        if (stockOk(qte)) {
-            if (prixOk(prix) == true) {
-                Produit pdt = new Produit(qte, nom, prix);
-                Produits.add(pdt);
-                return Produits.add(pdt);
-            }
+        Produit pdt = new Produit(qte, nom, prix);
+        if (pdtOk(pdt)) {
+            Produits.add(pdt);
+            return Produits.add(pdt);
         }
         return false;
     }
@@ -54,11 +52,9 @@ public class Catalogue implements I_Catalogue {
             return 0;
         } else {
             for (I_Produit p : l) {
-                if ((prixOk(p.getPrixUnitaireHT()) == true)) {
-                    if(stockOk(p.getQuantite())){
-                        if (this.addProduit(p)) {
-                            nbAjout++;
-                        }
+                if (pdtOk(p)) {
+                    if (this.addProduit(p)) {
+                        nbAjout++;
                     }
                 }
             }
@@ -149,32 +145,33 @@ public class Catalogue implements I_Catalogue {
         } catch (NumberFormatException e) {
             return false;
         }
-        return(prixProduit>0);
+        return (prixProduit > 0);
     }
 
     public boolean stockOk(int pStock) {
-        return pStock>0;
+        return pStock > 0;
     }
-    
-    public boolean produitExiste(String nom){
-        boolean res=false;
-        String[] nomPdt=getNomProduits();
-        int i=0;
-        while(i<nomPdt.length && res==false){
-            if(nomPdt[i].equals(nom)){
-                res=true;
+
+    public boolean produitExiste(String nom) {
+        boolean res = false;
+        String[] nomPdt = getNomProduits();
+        int i = 0;
+        while (i < nomPdt.length && res == false) {
+            if (nomPdt[i].equals(nom)) {
+                res = true;
             }
             i++;
         }
         return res;
     }
-    public boolean pdtOk(I_Produit pdt){
-        boolean res=false;
-        if(pdt!=null){
-            if(produitExiste(pdt.getNom())){
-                if(prixOk(pdt.getPrixUnitaireHT())){
-                    if(stockOk(pdt.getQuantite())){
-                        res=true;
+
+    public boolean pdtOk(I_Produit pdt) {
+        boolean res = false;
+        if (pdt != null) {
+            if (produitExiste(pdt.getNom()) == false) {
+                if (prixOk(pdt.getPrixUnitaireHT())) {
+                    if (stockOk(pdt.getQuantite())) {
+                        res = true; 
                     }
                 }
             }
