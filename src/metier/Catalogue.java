@@ -63,12 +63,14 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean acheterStock(String nomProduit, int qteAchetee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        I_Produit p=getProduit(nomProduit);
+        return p.ajouter(qteAchetee);
     }
 
     @Override
     public boolean vendreStock(String nomProduit, int qteVendue) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        I_Produit p=getProduit(nomProduit);
+        return p.enlever(qteVendue);
     }
 
     @Override
@@ -110,6 +112,15 @@ public class Catalogue implements I_Catalogue {
         }
         sCatalogue = sCatalogue + System.lineSeparator() +" Montant total TTC du stock " + this.getMontantTotalTTC();
         return sCatalogue;
+    }
+    
+    public I_Produit getProduit(String nomPdt){
+        int i=0;
+        while(Produits.get(i).getNom().equals(nomPdt)==false && i<Produits.size()-1){
+            i++;
+        }
+        I_Produit p=Produits.get(i);
+        return p;
     }
 
 }
