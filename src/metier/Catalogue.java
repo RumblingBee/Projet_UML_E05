@@ -22,9 +22,8 @@ public class Catalogue implements I_Catalogue {
             if(produitExiste(produit.getNom())){
                 return false;
             }else{
-                if (verifierStock(produit.getQuantite())) {
-                    if (verifierPrix(produit.getPrixUnitaireHT()) == true) {
-                        System.out.println("Creation d'un nouveau produit ...");
+                if (stockOk(produit.getQuantite())) {
+                    if (prixOk(produit.getPrixUnitaireHT()) == true) {
                         Produits.add(produit);
                         return true;
                     }
@@ -38,8 +37,8 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        if (verifierStock(qte)) {
-            if (verifierPrix(prix) == true) {
+        if (stockOk(qte)) {
+            if (prixOk(prix) == true) {
                 Produit pdt = new Produit(qte, nom, prix);
                 Produits.add(pdt);
                 return Produits.add(pdt);
@@ -55,9 +54,11 @@ public class Catalogue implements I_Catalogue {
             return 0;
         } else {
             for (I_Produit p : l) {
-                if ((verifierPrix(p.getPrixUnitaireHT()) == true) && (verifierStock(p.getQuantite())==true)) {
-                    if (this.addProduit(p)) {
-                        nbAjout++;
+                if ((prixOk(p.getPrixUnitaireHT()) == true)) {
+                    if(stockOk(p.getQuantite())){
+                        if (this.addProduit(p)) {
+                            nbAjout++;
+                        }
                     }
                 }
             }
@@ -141,26 +142,18 @@ public class Catalogue implements I_Catalogue {
         return p;
     }
 
-    public boolean verifierPrix(double prixProduit) {
+    public boolean prixOk(double prixProduit) {
 
         try {
 
         } catch (NumberFormatException e) {
             return false;
         }
-        if (prixProduit <= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return(prixProduit>0);
     }
 
-    public boolean verifierStock(int pStock) {
-        if (pStock <= 0) {
-            return false;
-        }
-
-        return true;
+    public boolean stockOk(int pStock) {
+        return pStock>0;
     }
     
     public boolean produitExiste(String nom){
@@ -172,6 +165,19 @@ public class Catalogue implements I_Catalogue {
                 res=true;
             }
             i++;
+        }
+        return res;
+    }
+    public boolean pdtOk(I_Produit pdt){
+        boolean res=false;
+        if(pdt!=null){
+            if(produitExiste(pdt.getNom())){
+                if(prixOk(pdt.getPrixUnitaireHT())){
+                    if(stockOk(pdt.getQuantite())){
+                        res=true;
+                    }
+                }
+            }
         }
         return res;
     }
