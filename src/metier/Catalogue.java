@@ -20,15 +20,19 @@ public class Catalogue implements I_Catalogue {
   
     @Override
     public boolean addProduit(I_Produit produit) {
-      if(verifierStock(produit.getQuantite())){    
-        if(verifierPrix(produit.getPrixUnitaireHT()) == true){
-            System.out.println("Creation d'un nouveau produit ...");
-             Produits.add(produit);
-             return true;
+        if (produit != null) {
+            if (verifierStock(produit.getQuantite())) {
+                if (verifierPrix(produit.getPrixUnitaireHT()) == true) {
+                    System.out.println("Creation d'un nouveau produit ...");
+                    Produits.add(produit);
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return false;
         }
-      }
-        return false;
-        }
+    }
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
@@ -44,15 +48,18 @@ public class Catalogue implements I_Catalogue {
     @Override
     public int addProduits(List<I_Produit> l) {
         int nbAjout = 0;
-        for(int i = l.size();i>=0;i--){
-         if(verifierPrix(l.get(i).getPrixUnitaireHT()) == true){
-          if(this.addProduit( l.get(i))){
-           nbAjout++;
-          }
-         }
+        if(l==null){
+            return 0;
+        }else{
+            for(I_Produit p:l){
+                if(verifierPrix(p.getPrixUnitaireHT()) == true){
+                    if(this.addProduit(p)){
+                        nbAjout++;
+                    }
+                }
+            }
+            return nbAjout;
         }
-        
-        return nbAjout;
     }
 
     @Override

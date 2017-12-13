@@ -219,7 +219,7 @@ public class CatalogueTest {
 	@Test
 	public void testAddProduits_null() {
 		List<I_Produit> liste = null;
-		assertEquals("ajout liste null", 0, cat.addProduits(liste));
+ 		assertEquals("ajout liste null", 0, cat.addProduits(liste));
 	}
 	
 	@Test
