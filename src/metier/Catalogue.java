@@ -6,6 +6,7 @@
 package metier;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,11 +28,9 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
+        nom=nom.replaceAll("\t"," ");
         Produit pdt = new Produit(nom.trim(),prix,qte);
-       
         if (pdtOk(pdt)) {
-            
-            
             return Produits.add(pdt);
         }
         else{
@@ -98,16 +97,26 @@ public class Catalogue implements I_Catalogue {
     @Override
     public String[] getNomProduits() {
 
-        String nomProduits[] = new String[Produits.size()];
+        ArrayList<String> nomProduits = new ArrayList();
 
         for (int i = 0; i < Produits.size(); i++) {
             if (Produits.size() == 0) {
                 System.out.println("Vide!");
             } else {
-                nomProduits[i] = Produits.get(i).getNom();
+                nomProduits.add(Produits.get(i).getNom()); 
             }
         }
-        return nomProduits;
+        Collections.sort(nomProduits);
+        String[] noms=new String[nomProduits.size()];
+        int i=0;
+        for(String s:nomProduits){
+            noms[i]=s;
+            noms[i]=noms[i].replaceAll("\t"," ");
+            noms[i]=noms[i].trim();
+            i++;
+        }
+        
+        return noms;
     }
 
     @Override
