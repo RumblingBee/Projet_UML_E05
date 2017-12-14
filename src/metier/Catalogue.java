@@ -121,23 +121,19 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public double getMontantTotalTTC() {
-        if(Produits.size() == 0){
+       if(Produits.size() == 0){
             return 0.0;
         }
-        System.out.println("==== DEBUT MONTANT TTC =====");
+        java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
         double prixTTC = 0;
         for (I_Produit p : Produits ) {
             System.out.println(""+p.getNom() + " qte: "+p.getQuantite() + "prixTTC" + p.getPrixUnitaireTTC());
-            prixTTC += p.getPrixUnitaireTTC() * p.getQuantite();
-            
+            prixTTC += p.getPrixUnitaireTTC() * p.getQuantite();        
              
         }
-        System.out.println("==== FIN MONTANT TTC =====");
-       /* for (int i = Produits.size() - 1; i >= 0; i--) {
-            prixTTC = prixTTC + (Produits.get(i).getPrixUnitaireTTC() * Produits.get(i).getQuantite());
-        }*/
-       
-        return prixTTC;
+ 
+        
+        return (double)Math.round(prixTTC*100)/100;
     }
 
     @Override
@@ -148,11 +144,11 @@ public class Catalogue implements I_Catalogue {
     @Override
     public String toString() {
         String sCatalogue = "";
-        for (int i = Produits.size() - 1; i >= 0; i--) {
-            sCatalogue = sCatalogue + Produits.get(i).toString() + System.lineSeparator();
+        for (I_Produit p:Produits) {
+            sCatalogue = sCatalogue + p.toString() + System.lineSeparator();
         }
-        
-        sCatalogue = sCatalogue + System.lineSeparator() + " Montant total TTC du stock : " + this.getMontantTotalTTC() + " €";
+        java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
+        sCatalogue = sCatalogue + System.lineSeparator() + "Montant total TTC du stock : " + df.format(this.getMontantTotalTTC()) + " €";
         sCatalogue =  sCatalogue.replaceAll("\\.",",");
         return sCatalogue;
     }
