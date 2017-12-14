@@ -151,9 +151,12 @@ public class Catalogue implements I_Catalogue {
         for (int i = Produits.size() - 1; i >= 0; i--) {
             sCatalogue = sCatalogue + Produits.get(i).toString() + System.lineSeparator();
         }
-        sCatalogue = sCatalogue + System.lineSeparator() + " Montant total TTC du stock " + this.getMontantTotalTTC();
+        
+        sCatalogue = sCatalogue + System.lineSeparator() + " Montant total TTC du stock : " + this.getMontantTotalTTC() + " €";
+        sCatalogue =  sCatalogue.replaceAll("\\.",",");
         return sCatalogue;
     }
+
 
     public I_Produit getProduit(String nomPdt) {
         int i = 0;
