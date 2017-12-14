@@ -16,15 +16,16 @@ import metier.Produit;
  */
 public class Creation_controleur {
     
-    private static I_Catalogue Produits;
+    private static I_Catalogue Produits=new Catalogue();
+
+    
+    public I_Catalogue getProduits() {
+        return Produits;
+    }
    
     
 
     public boolean creerPdt(JTextField sNom, JTextField sPrixUnit, JTextField sQteStock) {
-        if(Produits == null){
-        Produits = new Catalogue();
-        System.out.println("Création d'un catalogue");
-        }
         String nom=sNom.getText();
         boolean prixValide;
         prixValide = verifierPrix(sPrixUnit);

@@ -13,7 +13,6 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private JTextField txtQte;
 //	private JComboBox<String> combo;
 	private JButton btValider;
-        private Creation_controleur ctrl=new Creation_controleur();
 
 //	public FenetreNouveauProduit(String[] lesCategories) {
 	public FenetreNouveauProduit() {	
@@ -54,7 +53,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
             
             
             
-                if(ctrl.creerPdt(txtNom, txtPrixHT, txtQte)){
+                if(FenetrePrincipale.getCtrl().creerPdt(txtNom, txtPrixHT, txtQte)){
                    
                 }else{
                     

@@ -1,5 +1,6 @@
 package uml.e05.monestier.dezette.vues;
 
+import controleurs.Creation_controleur;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,6 +20,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
+        private static Creation_controleur ctrl=new Creation_controleur();
+
+    public static Creation_controleur getCtrl() {
+        return ctrl;
+    }
 
 	
 	public FenetrePrincipale() {
@@ -80,7 +86,7 @@ tabProduits = c1.getNomProduits();
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage(c1.toString());
+			new FenetreAffichage(ctrl.getProduits().toString());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
