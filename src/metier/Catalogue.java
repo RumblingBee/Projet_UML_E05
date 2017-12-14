@@ -18,22 +18,6 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean addProduit(I_Produit produit) {
-      /*  if (produit != null) {
-            if (produitExiste(produit.getNom())) {
-                return false;
-            } else {
-                if (stockOk(produit.getQuantite())) {
-                    if (prixOk(produit.getPrixUnitaireHT()) == true) {
-                        Produits.add(produit);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        } else {
-            return false;
-        }*/
-      
       if(pdtOk(produit)){
            Produits.add(produit);
            return true;
@@ -43,7 +27,7 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        Produit pdt = new Produit(nom,prix,qte);
+        Produit pdt = new Produit(nom.trim(),prix,qte);
        
         if (pdtOk(pdt)) {
             
@@ -93,14 +77,22 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean acheterStock(String nomProduit, int qteAchetee) {
-        I_Produit p = getProduit(nomProduit);
-        return p.ajouter(qteAchetee);
+        if(produitExiste(nomProduit)){
+            I_Produit p = getProduit(nomProduit);
+            return p.ajouter(qteAchetee);
+        }else{
+            return false;
+        }
     }
 
     @Override
     public boolean vendreStock(String nomProduit, int qteVendue) {
         I_Produit p = getProduit(nomProduit);
-        return p.enlever(qteVendue);
+        if(qteVendue>0 && qteVendue<p.getQuantite()){
+            return p.enlever(qteVendue);
+        }else{
+            return false;
+        }
     }
 
     @Override
@@ -174,7 +166,7 @@ public class Catalogue implements I_Catalogue {
     }
 
     public boolean stockOk(int pStock) {
-        return pStock > 0;
+        return pStock >= 0;
     }
 
     public boolean produitExiste(String nom) {
@@ -182,7 +174,7 @@ public class Catalogue implements I_Catalogue {
         String[] nomPdt = getNomProduits();
         int i = 0;
         while (i < nomPdt.length && res == false) {
-            if (nomPdt[i].equals(nom)) {
+            if (nomPdt[i].trim().equals(nom.trim())) {
                 res = true;
             }
             i++;

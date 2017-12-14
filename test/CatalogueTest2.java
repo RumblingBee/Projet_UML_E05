@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 import metier.*;
+import org.hamcrest.core.IsNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -796,7 +797,8 @@ public class CatalogueTest2 {
 	
 	@Test
 	public void testClear() {
-		fail("A vous d'écrire le code de ce test");
+		cat.clear();
+                assertTrue(cat.getNomProduits().length==0);
 	}
 
 	private I_Produit createProduit(String nom, double prixHT, int quantite) {
