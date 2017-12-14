@@ -55,7 +55,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
             
             
                 if(ctrl.creerPdt(txtNom, txtPrixHT, txtQte)){
-                   System.out.println("yy");
+                   
                 }else{
                     
                 }

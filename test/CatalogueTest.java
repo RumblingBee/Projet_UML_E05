@@ -795,7 +795,8 @@ public class CatalogueTest {
 	
 	@Test
 	public void testClear() {
-		fail("A vous d'�crire le code de ce test");
+		cat.addProduit("Twix", 10, 1);
+		assertEquals("montant TTC ; 12.00 ",12.00,cat.getMontantTotalTTC(),0);
 	}
 
 	private I_Produit createProduit(String nom, double prixHT, int quantite) {

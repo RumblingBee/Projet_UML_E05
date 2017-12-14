@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class Catalogue implements I_Catalogue {
 
-    private static List<I_Produit> Produits = new ArrayList<>();
+    private List<I_Produit> Produits = new ArrayList<>();
 
     @Override
     public boolean addProduit(I_Produit produit) {
-        if (produit != null) {
+      /*  if (produit != null) {
             if (produitExiste(produit.getNom())) {
                 return false;
             } else {
@@ -32,15 +32,26 @@ public class Catalogue implements I_Catalogue {
             }
         } else {
             return false;
-        }
+        }*/
+      
+      if(pdtOk(produit)){
+           Produits.add(produit);
+           return true;
+      }
+      return false;
     }
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        Produit pdt = new Produit(qte, nom, prix);
+        Produit pdt = new Produit(nom,prix,qte);
+       
         if (pdtOk(pdt)) {
-            Produits.add(pdt);
+            
+            
             return Produits.add(pdt);
+        }
+        else{
+            
         }
         return false;
     }
@@ -52,11 +63,13 @@ public class Catalogue implements I_Catalogue {
             return 0;
         } else {
             for (I_Produit p : l) {
-                if (pdtOk(p)) {
-                    if (this.addProduit(p)) {
-                        nbAjout++;
-                    }
+                if(pdtOk(p)){
+                    
+                    Produits.add(p);
+                    nbAjout++;
                 }
+              
+                
             }
             return nbAjout;
         }
@@ -107,10 +120,22 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public double getMontantTotalTTC() {
-        double prixTTC = 0;
-        for (int i = Produits.size() - 1; i >= 0; i--) {
-            prixTTC = prixTTC + (Produits.get(i).getPrixUnitaireTTC() * Produits.get(i).getQuantite());
+        if(Produits.size() == 0){
+            return 0.0;
         }
+        System.out.println("==== DEBUT MONTANT TTC =====");
+        double prixTTC = 0;
+        for (I_Produit p : Produits ) {
+            System.out.println(""+p.getNom() + " qte: "+p.getQuantite() + "prixTTC" + p.getPrixUnitaireTTC());
+            prixTTC += p.getPrixUnitaireTTC() * p.getQuantite();
+            
+             
+        }
+        System.out.println("==== FIN MONTANT TTC =====");
+       /* for (int i = Produits.size() - 1; i >= 0; i--) {
+            prixTTC = prixTTC + (Produits.get(i).getPrixUnitaireTTC() * Produits.get(i).getQuantite());
+        }*/
+       
         return prixTTC;
     }
 
@@ -168,10 +193,17 @@ public class Catalogue implements I_Catalogue {
     public boolean pdtOk(I_Produit pdt) {
         boolean res = false;
         if (pdt != null) {
+            System.out.println("Produit non nul");
             if (produitExiste(pdt.getNom()) == false) {
+                 System.out.println("Produit similaire non existant");
                 if (prixOk(pdt.getPrixUnitaireHT())) {
+                     System.out.println("Prix positif");
                     if (stockOk(pdt.getQuantite())) {
+                         System.out.println("Stock Positif");
                         res = true; 
+                    }
+                    else{
+                        res = false;
                     }
                 }
             }

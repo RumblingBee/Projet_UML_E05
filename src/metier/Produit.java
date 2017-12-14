@@ -14,7 +14,7 @@ public class Produit implements I_Produit {
     private int quantiteStock;
     private String nom;
     private double prixUnitaire;
-    private static double tauxTVA;
+    private static double tauxTVA = 0.2;
 
     public Produit(int quantiteStock, String nom, double prixUnitaire) {
         this.quantiteStock = quantiteStock;
