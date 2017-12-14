@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import metier.*;
+import uml.e05.monestier.dezette.metier.*;
 import org.junit.Before;
 import org.junit.Test;
 

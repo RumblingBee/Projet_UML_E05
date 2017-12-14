@@ -28,7 +28,7 @@ public class produitDAO {
     private String username = "monestierc";
     private String password = "1105018199N";
 
-    public produitDAO(Connection cn) {
+    public produitDAO() {
 
 
      try{
@@ -67,6 +67,15 @@ public class produitDAO {
 
 
         return arrayProduit;
+    }
+    
+    public void close(){
+        try{
+            cn.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
     }
 
 

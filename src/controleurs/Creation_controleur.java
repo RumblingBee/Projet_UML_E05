@@ -6,9 +6,8 @@
 package controleurs;
 
 import javax.swing.JTextField;
-import metier.Catalogue;
-import metier.I_Catalogue;
-import metier.Produit;
+import uml.e05.monestier.dezette.metier.*;
+
 
 /**
  *

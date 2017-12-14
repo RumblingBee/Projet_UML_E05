@@ -4,8 +4,7 @@ import controleurs.Creation_controleur;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import metier.Catalogue;
-import metier.Produit;
+import uml.e05.monestier.dezette.metier.*;
 
 
 
