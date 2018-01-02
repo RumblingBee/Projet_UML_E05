@@ -7,6 +7,7 @@
 package DAO;
 
 
+import sun.rmi.runtime.Log;
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Produit;
 import uml.e05.monestier.dezette.metier.Produit;
@@ -72,7 +73,8 @@ public class ProduitDAO {
     }
 
     public void create(I_Produit produit){
-PreparedStatement insertProduitPreparedStatement = null;
+        PreparedStatement insertProduitPreparedStatement = null;
+
         try{
             String insertProduitString = "CALL INSERTPRODUIT(?,?,?)";
             insertProduitPreparedStatement = cn.prepareStatement(insertProduitString);
@@ -88,6 +90,23 @@ PreparedStatement insertProduitPreparedStatement = null;
             e.printStackTrace();
         }
 
+    }
+    public void deleteProduit(String nomProduit){
+
+        PreparedStatement deleteProduitPreparedStatement = null;
+        try {
+           String deleteProduitString = "DELETE FROM PRODUIT WHERE NOMPRODUIT = ?";
+           deleteProduitPreparedStatement = cn.prepareStatement(deleteProduitString);
+
+           deleteProduitPreparedStatement.setString(1,nomProduit);
+
+           deleteProduitPreparedStatement.executeQuery();
+
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 
 
     }

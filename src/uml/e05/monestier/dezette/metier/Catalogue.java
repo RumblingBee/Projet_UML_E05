@@ -80,10 +80,13 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean removeProduit(String nom) {
+        ProduitDAO pdao = new ProduitDAO();
         boolean hasBeenRemoved = false;
         int i = 0;
+
         while (i < Produits.size() && hasBeenRemoved == false) {
             if (Produits.get(i).getNom().equals(nom)) {
+                pdao.deleteProduit(nom);
                 hasBeenRemoved = Produits.remove(Produits.get(i));
             } else {
                 i++;
@@ -213,13 +216,13 @@ public class Catalogue implements I_Catalogue {
     public boolean pdtOk(I_Produit pdt) {
         boolean res = false;
         if (pdt != null) {
-            System.out.println("Produit non nul");
+            //System.out.println("Produit non nul");
             if (produitExiste(pdt.getNom()) == false) {
-                 System.out.println("Produit similaire non existant");
+                 //System.out.println("Produit similaire non existant");
                 if (prixOk(pdt.getPrixUnitaireHT())) {
-                     System.out.println("Prix positif");
+                     //System.out.println("Prix positif");
                     if (stockOk(pdt.getQuantite())) {
-                         System.out.println("Stock Positif");
+                         //System.out.println("Stock Positif");
                         res = true; 
                     }
                     else{
