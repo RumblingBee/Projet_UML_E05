@@ -7,8 +7,8 @@
 package DAO;
 
 
-import sun.rmi.runtime.Log;
-import uml.e05.monestier.dezette.metier.Catalogue;
+
+
 import uml.e05.monestier.dezette.metier.I_Produit;
 import uml.e05.monestier.dezette.metier.Produit;
 
@@ -70,6 +70,7 @@ public class ProduitDAO {
 
 
         return arrayProduit;
+
     }
 
     public void create(I_Produit produit){
@@ -110,6 +111,9 @@ public class ProduitDAO {
 
 
     }
+
+
+
 
     
     public void close(){

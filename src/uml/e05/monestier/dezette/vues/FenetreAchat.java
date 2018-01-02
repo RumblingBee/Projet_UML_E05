@@ -1,8 +1,11 @@
 package uml.e05.monestier.dezette.vues;
 
-import java.awt.*;
-import java.awt.event.*;
+import controleurs.MainControleur1;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class FenetreAchat extends JFrame implements ActionListener {
@@ -35,7 +38,8 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-            
+                String n=combo.getSelectedItem().toString();
+                MainControleur1.getInstance().achatProduit(txtQuantite,n);
 		this.dispose();
                 
 	}

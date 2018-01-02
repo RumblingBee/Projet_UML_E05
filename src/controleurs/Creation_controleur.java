@@ -5,8 +5,10 @@
  */
 package controleurs;
 
-import javax.swing.JTextField;
-import uml.e05.monestier.dezette.metier.*;
+import uml.e05.monestier.dezette.metier.I_Catalogue;
+import uml.e05.monestier.dezette.metier.Produit;
+
+import javax.swing.*;
 
 
 /**
@@ -15,25 +17,19 @@ import uml.e05.monestier.dezette.metier.*;
  */
 public class Creation_controleur {
     
-    private static I_Catalogue Produits=new Catalogue();
-
-    
-    public I_Catalogue getProduits() {
-        return Produits;
-    }
    
     
 
-    public boolean creerPdt(JTextField sNom, JTextField sPrixUnit, JTextField sQteStock) {
+    public boolean creerPdt(JTextField sNom, JTextField sPrixUnit, JTextField sQteStock, I_Catalogue produits) {
         String nom=sNom.getText();
         boolean prixValide;
         prixValide = verifierPrix(sPrixUnit);
         if(prixValide == true){
-         if(produitExiste(nom)==false){
+         if(produitExiste(nom,produits)==false){
                 float prix = Float.parseFloat(sPrixUnit.getText());
                 int qte=Integer.parseInt(sQteStock.getText());
                 Produit p = new Produit(qte,nom,prix);
-                Produits.addProduit(p);
+                produits.addProduit(p);
          }
         }
        return true;
@@ -53,7 +49,7 @@ public class Creation_controleur {
         }
     }
     
-    public boolean produitExiste(String nom){
+    public boolean produitExiste(String nom,I_Catalogue Produits){
         boolean res=false;
         String[] nomPdt=Produits.getNomProduits();
         int i=0;
