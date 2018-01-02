@@ -6,6 +6,7 @@
  */
 package DAO;
 
+
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Produit;
 import uml.e05.monestier.dezette.metier.Produit;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author clement
  */
-public class produitDAO {
+public class ProduitDAO {
 
     private Connection cn = null;
     private ResultSet rs = null;
@@ -28,11 +29,12 @@ public class produitDAO {
     private String username = "monestierc";
     private String password = "1105018199N";
 
-    public produitDAO() {
+    public ProduitDAO() {
 
 
      try{
-         Class.forName("oracle.jdbc.driver.OracleDriver");
+
+         Class.forName("oracle.jdbc.OracleDriver");
          try {
              cn = DriverManager.getConnection(url,username,password);
          }catch (SQLException e){
@@ -68,6 +70,28 @@ public class produitDAO {
 
         return arrayProduit;
     }
+
+    public void create(I_Produit produit){
+PreparedStatement insertProduitPreparedStatement = null;
+        try{
+            String insertProduitString = "CALL INSERTPRODUIT(?,?,?)";
+            insertProduitPreparedStatement = cn.prepareStatement(insertProduitString);
+
+            insertProduitPreparedStatement.setString(1,produit.getNom());
+            insertProduitPreparedStatement.setDouble(2,produit.getPrixUnitaireHT());
+            insertProduitPreparedStatement.setInt(3,produit.getQuantite());
+
+            insertProduitPreparedStatement.executeQuery();
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+
+    }
+
     
     public void close(){
         try{

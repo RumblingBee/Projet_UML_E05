@@ -5,7 +5,7 @@
  */
 package uml.e05.monestier.dezette.metier;
 
-import DAO.produitDAO;
+import DAO.ProduitDAO;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,10 +19,10 @@ public class Catalogue implements I_Catalogue {
     private List<I_Produit> Produits = new ArrayList<>();
 
     public Catalogue() {
-        produitDAO connexion=new produitDAO();
+        ProduitDAO connexion=new ProduitDAO();
         this.addProduits(connexion.findAll());
         
-        //TODO a modifier
+
         
         connexion.close();
     }
@@ -33,6 +33,14 @@ public class Catalogue implements I_Catalogue {
     public boolean addProduit(I_Produit produit) {
       if(pdtOk(produit)){
            Produits.add(produit);
+
+          /**
+           * C'est cochon c'est un test
+           */
+          ProduitDAO pdao = new ProduitDAO();
+
+          pdao.create(produit);
+
            return true;
       }
       return false;
