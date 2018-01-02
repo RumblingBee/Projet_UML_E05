@@ -6,7 +6,6 @@
  */
 package DAO;
 
-import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Produit;
 import uml.e05.monestier.dezette.metier.Produit;
 
@@ -67,7 +66,7 @@ public class produitDAO {
 
 
         return arrayProduit;
-    }
+    } 
     
     public void close(){
         try{

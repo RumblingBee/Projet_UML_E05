@@ -1,10 +1,14 @@
 package uml.e05.monestier.dezette.vues;
 
-import controleurs.Creation_controleur;
-import java.awt.*;
-import java.awt.event.*;
+import controleurs.MainControleur1;
+import uml.e05.monestier.dezette.metier.Catalogue;
+
 import javax.swing.*;
-import uml.e05.monestier.dezette.metier.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 
 
@@ -19,9 +23,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
-        private static Creation_controleur ctrl=new Creation_controleur();
+	private static MainControleur1 ctrl=MainControleur1.getInstance();
 
-    public static Creation_controleur getCtrl() {
+    public static MainControleur1 getCtrl() {
         return ctrl;
     }
 
@@ -96,7 +100,7 @@ tabProduits = c1.getNomProduits();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(tabProduits);
+			new FenetreAchat(ctrl.getNomProduits());
 		if (e.getSource() == btVente)
 			new FenetreVente(tabProduits);
 		if (e.getSource() == btQuitter){
