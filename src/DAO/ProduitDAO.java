@@ -93,10 +93,10 @@ public class ProduitDAO {
 
     }
     public void deleteProduit(String nomProduit){
-
+       
         PreparedStatement deleteProduitPreparedStatement = null;
         try {
-           String deleteProduitString = "DELETE FROM PRODUIT WHERE NOMPRODUIT = ?";
+           String deleteProduitString = "DELETE FROM PRODUITS WHERE NOMPRODUIT = ?";
            deleteProduitPreparedStatement = cn.prepareStatement(deleteProduitString);
 
            deleteProduitPreparedStatement.setString(1,nomProduit);
