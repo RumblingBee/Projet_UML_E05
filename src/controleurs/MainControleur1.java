@@ -54,6 +54,12 @@ public class MainControleur1 {
         System.out.println("initialisation contrôleur achat Vente");
         return controleurAchatVente.enregistrerAchat(saisie,n,Produits);
     }
-    
-    
+
+
+    public boolean venteProduit(JTextField txtQuantite, String n) {
+        if(controleurAchatVente==null){
+            controleurAchatVente=new ControleurAchatVente();
+        }
+        return controleurAchatVente.enregistrerVente(txtQuantite,n,Produits);
+    }
 }
