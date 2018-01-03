@@ -5,10 +5,10 @@
  */
 package controleurs;
 
-import javax.swing.JTextField;
-import sun.security.jca.GetInstance;
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
+
+import javax.swing.*;
 
 /**
  *
@@ -51,6 +51,7 @@ public class MainControleur1 {
         if(controleurAchatVente==null){
             controleurAchatVente=new ControleurAchatVente();
         }
+        System.out.println("initialisation contrôleur achat Vente");
         return controleurAchatVente.enregistrerAchat(saisie,n,Produits);
     }
     
