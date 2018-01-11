@@ -6,7 +6,7 @@
 package uml.e05.monestier.dezette.metier;
 
 
-import DAO.ProduitDAO;
+import DAO.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,10 +18,11 @@ import java.util.List;
 public class Catalogue implements I_Catalogue {
 
     private List<I_Produit> Produits = new ArrayList<>();
+    private I_DAO connexion;
 
     public Catalogue() {
 
-        ProduitDAO connexion=new ProduitDAO();
+        connexion=new DAO();
         this.addProduits(connexion.findAll());
 
         
@@ -37,10 +38,7 @@ public class Catalogue implements I_Catalogue {
       if(pdtOk(produit)){
            Produits.add(produit);
 
-          /**
-           * C'est cochon c'est un test
-           */
-          ProduitDAO pdao = new ProduitDAO();
+          I_DAO pdao = new DAO();
 
           pdao.create(produit);
 
@@ -83,7 +81,7 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean removeProduit(String nom) {
-        ProduitDAO pdao = new ProduitDAO();
+        I_DAO pdao = new DAO();
         boolean hasBeenRemoved = false;
         int i = 0;
 
@@ -104,8 +102,10 @@ public class Catalogue implements I_Catalogue {
     public boolean acheterStock(String nomProduit, int qteAchetee) {
         if(produitExiste(nomProduit)){
             I_Produit p = getProduit(nomProduit);
-            System.out.println("passage par le catalogue verif existance pdt");
-            return p.ajouter(qteAchetee);
+            p.ajouter(qteAchetee);
+            qteAchetee = p.getQuantite();
+            connexion.modifierStockProduit(nomProduit,qteAchetee);
+            return true;
         }else{
             return false;
         }
@@ -115,7 +115,10 @@ public class Catalogue implements I_Catalogue {
     public boolean vendreStock(String nomProduit, int qteVendue) {
         I_Produit p = getProduit(nomProduit);
         if(qteVendue>0 && qteVendue<p.getQuantite()){
-            return p.enlever(qteVendue);
+            p.enlever(qteVendue);
+            qteVendue = p.getQuantite();
+            connexion.modifierStockProduit(nomProduit,qteVendue);
+            return true;
         }else{
             return false;
         }
