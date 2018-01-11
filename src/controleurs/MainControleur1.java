@@ -5,10 +5,12 @@
  */
 package controleurs;
 
-import javax.swing.JTextField;
+import javax.swing.*;
+
 import sun.security.jca.GetInstance;
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
+import uml.e05.monestier.dezette.metier.Produit;
 
 /**
  *
@@ -18,6 +20,7 @@ public class MainControleur1 {
     
     private Creation_controleur creationControleur;
     private ControleurAchatVente controleurAchatVente;
+    private Suppression_controleur suppressionControleur;
     
     private static I_Catalogue Produits=new Catalogue();
     private static MainControleur1 instance;
@@ -52,6 +55,12 @@ public class MainControleur1 {
             controleurAchatVente=new ControleurAchatVente();
         }
         return controleurAchatVente.enregistrerAchat(saisie,n,Produits);
+    }
+    public boolean supprimerProduit(JComboBox<String> nomProduit){
+        if(suppressionControleur==null){
+            suppressionControleur=new Suppression_controleur();
+        }
+        return suppressionControleur.supprimerProduit(nomProduit, Produits);
     }
     
     
