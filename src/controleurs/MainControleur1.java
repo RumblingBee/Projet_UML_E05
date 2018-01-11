@@ -5,12 +5,16 @@
  */
 package controleurs;
 
+
 import javax.swing.*;
 
 import sun.security.jca.GetInstance;
+
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
 import uml.e05.monestier.dezette.metier.Produit;
+
+import javax.swing.*;
 
 /**
  *
@@ -54,8 +58,10 @@ public class MainControleur1 {
         if(controleurAchatVente==null){
             controleurAchatVente=new ControleurAchatVente();
         }
+        System.out.println("initialisation contrôleur achat Vente");
         return controleurAchatVente.enregistrerAchat(saisie,n,Produits);
     }
+
     public boolean supprimerProduit(JComboBox<String> nomProduit){
         if(suppressionControleur==null){
             suppressionControleur=new Suppression_controleur();
@@ -64,4 +70,14 @@ public class MainControleur1 {
     }
     
     
+
+
+
+    public boolean venteProduit(JTextField txtQuantite, String n) {
+        if(controleurAchatVente==null){
+            controleurAchatVente=new ControleurAchatVente();
+        }
+        return controleurAchatVente.enregistrerVente(txtQuantite,n,Produits);
+    }
+
 }

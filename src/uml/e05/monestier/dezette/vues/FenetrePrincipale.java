@@ -102,7 +102,7 @@ tabProduits = c1.getNomProduits();
 		if (e.getSource() == btAchat)
 			new FenetreAchat(ctrl.getNomProduits());
 		if (e.getSource() == btVente)
-			new FenetreVente(tabProduits);
+			new FenetreVente(ctrl.getNomProduits());
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);

@@ -39,7 +39,8 @@ public class FenetreAchat extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
                 String n=combo.getSelectedItem().toString();
-                MainControleur1.getInstance().achatProduit(txtQuantite,n);
+		        System.out.println("Saisie Finie");
+		        MainControleur1.getInstance().achatProduit(txtQuantite,n);
 		this.dispose();
                 
 	}

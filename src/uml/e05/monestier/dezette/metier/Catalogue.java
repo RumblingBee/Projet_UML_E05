@@ -104,6 +104,7 @@ public class Catalogue implements I_Catalogue {
     public boolean acheterStock(String nomProduit, int qteAchetee) {
         if(produitExiste(nomProduit)){
             I_Produit p = getProduit(nomProduit);
+            System.out.println("passage par le catalogue verif existance pdt");
             return p.ajouter(qteAchetee);
         }else{
             return false;

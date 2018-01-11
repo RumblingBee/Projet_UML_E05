@@ -17,7 +17,7 @@ public class ControleurAchatVente {
     
     public boolean enregistrerAchat(JTextField stockSaisi, String nomProduit,I_Catalogue produits){
         if(saisieOk(stockSaisi)){
-            int stock=Integer.parseInt(stockSaisi.toString());
+            int stock=Integer.parseInt(stockSaisi.getText());
             return produits.acheterStock(nomProduit,stock);
         }else{
             return false;
@@ -25,12 +25,21 @@ public class ControleurAchatVente {
     }
     
     private boolean saisieOk(JTextField stockSaisi){
-        int stock;
-        try{
-            stock=Integer.parseInt(stockSaisi.toString());
-        }catch(Exception e){
+        if(stockSaisi.getText().matches("^[0-9]*$")){
+            int stock=Integer.parseInt(stockSaisi.getText());
+            System.out.println("saisie ok");
+            return stock > 0;
+        }else {
             return false;
         }
-        return stock > 0;
+    }
+
+    public boolean enregistrerVente(JTextField txtQuantite, String n, I_Catalogue produits) {
+        if(saisieOk(txtQuantite)){
+            int stock=Integer.parseInt(txtQuantite.getText());
+            return produits.vendreStock(n,stock);
+        }else{
+            return false;
+        }
     }
 }
