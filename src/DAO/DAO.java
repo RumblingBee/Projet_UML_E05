@@ -19,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author clement
  */
-public class ProduitDAO {
+public class DAO implements I_DAO {
 
     private Connection cn = null;
     private ResultSet rs = null;
@@ -30,7 +30,7 @@ public class ProduitDAO {
     private String username = "monestierc";
     private String password = "1105018199N";
 
-    public ProduitDAO() {
+    public DAO() {
 
 
      try{
@@ -50,6 +50,7 @@ public class ProduitDAO {
 
 
 
+    @Override
     public ArrayList<I_Produit> findAll(){
 
         ArrayList<I_Produit> arrayProduit = new ArrayList<>();
@@ -73,6 +74,7 @@ public class ProduitDAO {
 
     }
 
+    @Override
     public void create(I_Produit produit){
         PreparedStatement insertProduitPreparedStatement = null;
 
@@ -92,6 +94,7 @@ public class ProduitDAO {
         }
 
     }
+    @Override
     public void deleteProduit(String nomProduit){
        
         PreparedStatement deleteProduitPreparedStatement = null;
@@ -112,10 +115,25 @@ public class ProduitDAO {
 
     }
 
+    @Override
+    public void modifierStockProduit(String nomProduit, int stock) {
+        PreparedStatement acheterProduitPreparedStatement = null;
+        try {
+            String acheterProduitString = "UPDATE PRODUITS SET QTEPRODUIT = ? WHERE NOMPRODUIT = ? ";
+            acheterProduitPreparedStatement = cn.prepareStatement(acheterProduitString);
+            acheterProduitPreparedStatement.setInt(1,stock);
+            acheterProduitPreparedStatement.setString(2,nomProduit);
+            acheterProduitPreparedStatement.executeUpdate();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 
 
 
-    
+    @Override
     public void close(){
         try{
             cn.close();
