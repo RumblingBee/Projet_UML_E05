@@ -22,7 +22,7 @@ public class Catalogue implements I_Catalogue {
 
     public Catalogue() {
         DAOFactory factory=new DAOFactory();
-        connexion=factory.createXMLDAO();
+        connexion=factory.mockDAO();
         this.addProduits(connexion.findAll());
 
         

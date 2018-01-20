@@ -16,17 +16,13 @@ public class MockDAO implements I_DAO {
     }
 
     @Override
-    public void deleteProduit(String nomProduit) {
+    public void deleteProduit(I_Produit produit) {
 
     }
 
     @Override
-    public void modifierStockProduit(String nomProduit, int stock) {
+    public void modifierStockProduit(I_Produit produit) {
 
     }
 
-    @Override
-    public void close() {
-
-    }
 }
