@@ -32,7 +32,6 @@ public class Produit implements I_Produit {
     @Override
     public boolean ajouter(int qteAchetee) {
         if(qteAchetee>0){
-            System.out.println("ajout de la quantité");
             quantiteStock+=qteAchetee;
             return true;
         }else{
