@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controleurs;
+package uml.e05.monestier.dezette.controleurs;
 
 import uml.e05.monestier.dezette.metier.I_Catalogue;
 import uml.e05.monestier.dezette.metier.Produit;

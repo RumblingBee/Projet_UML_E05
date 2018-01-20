@@ -1,4 +1,4 @@
-package DAO;
+package uml.e05.monestier.dezette.DAO;
 
 import uml.e05.monestier.dezette.metier.I_Produit;
 

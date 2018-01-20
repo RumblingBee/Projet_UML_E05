@@ -1,6 +1,6 @@
 package uml.e05.monestier.dezette.vues;
 
-import controleurs.MainControleur1;
+import uml.e05.monestier.dezette.controleurs.MainControleur1;
 
 import javax.swing.*;
 import java.awt.*;

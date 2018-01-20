@@ -1,6 +1,6 @@
 package uml.e05.monestier.dezette.vues;
 
-import controleurs.MainControleur1;
+import uml.e05.monestier.dezette.controleurs.MainControleur1;
 import uml.e05.monestier.dezette.metier.Catalogue;
 
 import javax.swing.*;
@@ -81,9 +81,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 /* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
-		Catalogue c1 = new Catalogue();
 String[] tabProduits = new String[1];
-tabProduits = c1.getNomProduits();
+tabProduits = ctrl.getNomProduits();
                 
 /* M�me chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };

@@ -1,4 +1,4 @@
-package controleurs;
+package uml.e05.monestier.dezette.controleurs;
 
 import uml.e05.monestier.dezette.metier.I_Catalogue;
 
