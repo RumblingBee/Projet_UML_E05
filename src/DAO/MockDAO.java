@@ -25,4 +25,9 @@ public class MockDAO implements I_DAO {
 
     }
 
+    @Override
+    public void close() {
+
+    }
+
 }

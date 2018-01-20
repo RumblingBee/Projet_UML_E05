@@ -5,6 +5,8 @@
  */
 package uml.e05.monestier.dezette.metier;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author prax
@@ -75,10 +77,14 @@ public class Produit implements I_Produit {
     
     @Override
     public String toString(){
-        String sProduit = "";
-        java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
-        sProduit =this.nom +" - prix HT : " + df.format(this.getPrixUnitaireHT()) + " € - prix TTC : " + df.format(this.getPrixUnitaireTTC()) +" € - quantité en stock : " + this.getQuantite();
-        return sProduit;
+        String descriptionDuProduit = "";
+        DecimalFormat prixFormate = formatageDuPrix();
+        descriptionDuProduit =this.nom +" - prix HT : " + prixFormate.format(this.getPrixUnitaireHT()) + " € - prix TTC : " + prixFormate.format(this.getPrixUnitaireTTC()) +" € - quantité en stock : " + this.getQuantite();
+        return descriptionDuProduit;
     }
-    
+
+    private DecimalFormat formatageDuPrix() {
+        return new DecimalFormat("0.00");
+    }
+
 }

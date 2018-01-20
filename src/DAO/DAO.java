@@ -14,6 +14,7 @@ import uml.e05.monestier.dezette.metier.Produit;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -51,27 +52,26 @@ public class DAO implements I_DAO {
 
 
     @Override
-    public ArrayList<I_Produit> findAll(){
+    public List<I_Produit> findAll(){
 
-        ArrayList<I_Produit> arrayProduit = new ArrayList<>();
+        List<I_Produit> produits = new ArrayList<>();
 
         try {
             st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = st.executeQuery("SELECT * FROM PRODUITS");
-
-            //On rajoute tous les produits
-            while(rs.next()){
-                Produit p = new Produit(rs.getString("nomProduit"),rs.getInt("prixProduit"),rs.getInt("qteProduit"));
-                arrayProduit.add(p);
-            }
+            peuplerCatalogue(produits);
 
         }catch(SQLException e){
             e.printStackTrace();
         }
+        return produits;
+        }
 
-
-        return arrayProduit;
-
+    private void peuplerCatalogue(List<I_Produit> produits) throws SQLException {
+        while(rs.next()){
+            Produit produit = new Produit(rs.getString("nomProduit"),rs.getInt("prixProduit"),rs.getInt("qteProduit"));
+            produits.add(produit);
+        }
     }
 
     @Override
@@ -87,7 +87,6 @@ public class DAO implements I_DAO {
             insertProduitPreparedStatement.setInt(3,produit.getQuantite());
 
             insertProduitPreparedStatement.executeQuery();
-
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -112,8 +111,6 @@ public class DAO implements I_DAO {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override

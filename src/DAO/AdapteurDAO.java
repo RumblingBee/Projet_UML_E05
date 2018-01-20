@@ -32,4 +32,9 @@ public class AdapteurDAO implements I_DAO{
     public void modifierStockProduit(I_Produit produit) {
         produitDAO_xml.maj(produit);
     }
+
+    @Override
+    public void close() {
+
+    }
 }

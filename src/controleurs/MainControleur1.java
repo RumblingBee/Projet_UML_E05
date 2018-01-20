@@ -79,5 +79,8 @@ public class MainControleur1 {
         }
         return controleurAchatVente.enregistrerVente(txtQuantite,n,Produits);
     }
+    public void close(){
+        Produits.close();
+    }
 
 }

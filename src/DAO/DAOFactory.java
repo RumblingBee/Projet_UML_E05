@@ -10,7 +10,7 @@ public class DAOFactory {
     public I_DAO createXMLDAO(){
         return new AdapteurDAO();
     }
-    public I_DAO mockDAO(){
+    public I_DAO createMockDAO(){
         return new MockDAO();
 
     }

@@ -7,6 +7,8 @@ package uml.e05.monestier.dezette.metier;
 
 
 import DAO.*;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,30 +19,25 @@ import java.util.List;
  */
 public class Catalogue implements I_Catalogue {
 
-    private List<I_Produit> Produits = new ArrayList<>();
+    private List<I_Produit> produits;
     private I_DAO connexion;
 
     public Catalogue() {
+
+        produits =  new ArrayList<>();
         DAOFactory factory=new DAOFactory();
-        connexion=factory.mockDAO();
+        connexion=factory.createMockDAO();
         this.addProduits(connexion.findAll());
 
-        
-
-        
-        //connexion.close();
     }
     
     
 
     @Override
     public boolean addProduit(I_Produit produit) {
-      if(pdtOk(produit)){
-           Produits.add(produit);
-
-          I_DAO pdao = new DAO();
-
-          pdao.create(produit);
+      if(produitValide(produit)){
+           produits.add(produit);
+           connexion.create(produit);
 
            return true;
       }
@@ -49,10 +46,10 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        nom=nom.replaceAll("\t"," ");
-        Produit pdt = new Produit(nom.trim(),prix,qte);
-        if (pdtOk(pdt)) {
-            return Produits.add(pdt);
+        nom = supprimerTabulation(nom);
+        Produit produit = new Produit(nom.trim(),prix,qte);
+        if (produitValide(produit)) {
+            return produits.add(produit);
         }
         else{
             
@@ -60,20 +57,23 @@ public class Catalogue implements I_Catalogue {
         return false;
     }
 
+    private String supprimerTabulation(String nom) {
+        nom=nom.replaceAll("\t"," ");
+        return nom;
+    }
+
     @Override
-    public int addProduits(List<I_Produit> l) {
+    public int addProduits(List<I_Produit> produits) {
         int nbAjout = 0;
-        if (l == null) {
+        if (produits == null) {
             return 0;
         } else {
-            for (I_Produit p : l) {
-                if(pdtOk(p)){
+            for (I_Produit produit : produits) {
+                if(produitValide(produit)){
                     
-                    Produits.add(p);
+                    this.produits.add(produit);
                     nbAjout++;
                 }
-              
-                
             }
             return nbAjout;
         }
@@ -82,29 +82,38 @@ public class Catalogue implements I_Catalogue {
     @Override
     public boolean removeProduit(String nom) {
         I_DAO pdao = new DAO();
-        boolean hasBeenRemoved = false;
-        int i = 0;
+        boolean produitSupprime = false;
+        int indexProduit = 0;
 
-        while (i < Produits.size() && hasBeenRemoved == false) {
-            if (Produits.get(i).getNom().equals(nom)) {
-                pdao.deleteProduit(Produits.get(i));
-                hasBeenRemoved = Produits.remove(Produits.get(i));
+        while (indexProduit < produits.size() && produitSupprime == false) {
+            if (nomProduitTrouveDansCatalogue(nom, indexProduit)) {
+                produitSupprime = supprimerProduit(pdao, indexProduit);
             } else {
-                i++;
+                indexProduit++;
             }
 
         }
 
-        return hasBeenRemoved;
+        return produitSupprime;
+    }
+
+    private boolean nomProduitTrouveDansCatalogue(String nom, int indexProduit) {
+        return produits.get(indexProduit).getNom().equals(nom);
+    }
+
+    private boolean supprimerProduit(I_DAO pdao, int indexProduit) {
+        boolean produitSupprime;
+        pdao.deleteProduit(produits.get(indexProduit));
+        produitSupprime = produits.remove(produits.get(indexProduit));
+        return produitSupprime;
     }
 
     @Override
     public boolean acheterStock(String nomProduit, int qteAchetee) {
         if(produitExiste(nomProduit) && qteAchetee >0){
-            I_Produit p = getProduit(nomProduit);
-            p.ajouter(qteAchetee);
-            qteAchetee = p.getQuantite();
-            connexion.modifierStockProduit(p);
+            I_Produit produit = getProduit(nomProduit);
+            produit.ajouter(qteAchetee);
+            connexion.modifierStockProduit(produit);
             return true;
         }else{
             return false;
@@ -113,11 +122,10 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean vendreStock(String nomProduit, int qteVendue) {
-        I_Produit p = getProduit(nomProduit);
-        if(qteVendue>0 && qteVendue<p.getQuantite()){
-            p.enlever(qteVendue);
-            qteVendue = p.getQuantite();
-            connexion.modifierStockProduit(p);
+        I_Produit produit = getProduit(nomProduit);
+        if(qteVendue>0 && qteVendue<produit.getQuantite()){
+            produit.enlever(qteVendue);
+            connexion.modifierStockProduit(produit);
             return true;
         }else{
             return false;
@@ -127,118 +135,132 @@ public class Catalogue implements I_Catalogue {
     @Override
     public String[] getNomProduits() {
 
-        ArrayList<String> nomProduits = new ArrayList();
+        List<String> nomProduits = new ArrayList();
 
-        for (int i = 0; i < Produits.size(); i++) {
-            if (Produits.size() == 0) {
-                System.out.println("Vide!");
-            } else {
-                nomProduits.add(Produits.get(i).getNom()); 
-            }
-        }
+        recupererNomsProduits(nomProduits);
         Collections.sort(nomProduits);
-        String[] noms=new String[nomProduits.size()];
+        String[] tableauDeNomsProduits = formatageListeEnTableau(nomProduits);
+        
+        return tableauDeNomsProduits;
+    }
+
+    private String[] formatageListeEnTableau(List<String> nomProduits) {
+        String[] tableauDeNomsProduits=new String[nomProduits.size()];
+
         int i=0;
         for(String s:nomProduits){
-            noms[i]=s;
-            noms[i]=noms[i].replaceAll("\t"," ");
-            noms[i]=noms[i].trim();
+            tableauDeNomsProduits[i]=s;
+            tableauDeNomsProduits[i] = supprimerTabulation(tableauDeNomsProduits[i]);
+            tableauDeNomsProduits[i]=tableauDeNomsProduits[i].trim();
             i++;
         }
-        
-        return noms;
+        return tableauDeNomsProduits;
+    }
+
+    private void recupererNomsProduits(List<String> nomProduits) {
+        for (int i = 0; i < produits.size(); i++) {
+            if (produits.size() == 0) {
+                System.out.println("Vide!");
+            } else {
+                nomProduits.add(produits.get(i).getNom());
+            }
+        }
     }
 
     @Override
     public double getMontantTotalTTC() {
-       if(Produits.size() == 0){
+       if(produits.size() == 0){
             return 0.0;
         }
-        java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
         double prixTTC = 0;
-        for (I_Produit p : Produits ) {
-            System.out.println(""+p.getNom() + " qte: "+p.getQuantite() + "prixTTC" + p.getPrixUnitaireTTC());
-            prixTTC += p.getPrixUnitaireTTC() * p.getQuantite();        
-             
+        for (I_Produit produit : produits) {
+            prixTTC += produit.getPrixUnitaireTTC() * produit.getQuantite();
         }
- 
-        
         return (double)Math.round(prixTTC*100)/100;
     }
 
     @Override
     public void clear() {
-        Produits.clear();
+        produits.clear();
     }
 
     @Override
     public String toString() {
-        String sCatalogue = "";
-        for (I_Produit p:Produits) {
-            sCatalogue = sCatalogue + p.toString() + "\n";
-        }
+        String descriptionCatalogue = recuperationDescriptionProduits();
+        descriptionCatalogue = miseEnFormeDescriptionCatalogue(descriptionCatalogue);
+        return descriptionCatalogue;
+    }
+
+    private String miseEnFormeDescriptionCatalogue(String descriptionCatalogue) {
         java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
-        sCatalogue = sCatalogue + "\nMontant total TTC du stock : " + df.format(this.getMontantTotalTTC()) + " €";
-        sCatalogue =  sCatalogue.replaceAll("\\.",",");
-        return sCatalogue;
+        descriptionCatalogue = descriptionCatalogue + "\nMontant total TTC du stock : " + df.format(this.getMontantTotalTTC()) + " €";
+        descriptionCatalogue =  descriptionCatalogue.replaceAll("\\.",",");
+        return descriptionCatalogue;
+    }
+
+    private String recuperationDescriptionProduits() {
+        String descriptionCatalogue = "";
+        for (I_Produit produit: produits) {
+            descriptionCatalogue = descriptionCatalogue + produit.toString() + "\n";
+        }
+        return descriptionCatalogue;
     }
 
 
-    public I_Produit getProduit(String nomPdt) {
+    private I_Produit getProduit(String nomPdt) {
         int i = 0;
-        while (Produits.get(i).getNom().equals(nomPdt) == false && i < Produits.size() - 1) {
+        while (nomProduitTrouveDansCatalogue(nomPdt, i) == false && i < produits.size() - 1) {
             i++;
         }
-        I_Produit p = Produits.get(i);
-        return p;
+        I_Produit produit = produits.get(i);
+        return produit;
     }
 
-    public boolean prixOk(double prixProduit) {
+    private boolean prixPositif(double prixProduit) {
 
         try {
-
         } catch (NumberFormatException e) {
             return false;
         }
         return (prixProduit > 0);
     }
 
-    public boolean stockOk(int pStock) {
+    private boolean stockPositif(int pStock) {
         return pStock >= 0;
     }
 
-    public boolean produitExiste(String nom) {
-        boolean res = false;
-        String[] nomPdt = getNomProduits();
+    private boolean produitExiste(String nom) {
+        boolean produitExiste = false;
+        String[] nomsProduits = getNomProduits();
         int i = 0;
-        while (i < nomPdt.length && res == false) {
-            if (nomPdt[i].trim().equals(nom.trim())) {
-                res = true;
+        while (i < nomsProduits.length && produitExiste == false) {
+            if (nomsProduits[i].trim().equals(nom.trim())) {
+                produitExiste = true;
             }
             i++;
         }
-        return res;
+        return produitExiste;
     }
 
-    public boolean pdtOk(I_Produit pdt) {
-        boolean res = false;
-        if (pdt != null) {
-            //System.out.println("Produit non nul");
-            if (produitExiste(pdt.getNom()) == false) {
-                 //System.out.println("Produit similaire non existant");
-                if (prixOk(pdt.getPrixUnitaireHT())) {
-                     //System.out.println("Prix positif");
-                    if (stockOk(pdt.getQuantite())) {
-                         //System.out.println("Stock Positif");
-                        res = true; 
+    private boolean produitValide(I_Produit produit) {
+        boolean produitValide = false;
+        if (produit != null) {
+            if (produitExiste(produit.getNom()) == false) {
+                if (prixPositif(produit.getPrixUnitaireHT())) {
+                    if (stockPositif(produit.getQuantite())) {
+                        produitValide = true;
                     }
                     else{
-                        res = false;
+                        produitValide = false;
                     }
                 }
             }
         }
-        return res;
+        return produitValide;
+    }
+
+    public void close(){
+        connexion.close();
     }
 
 }

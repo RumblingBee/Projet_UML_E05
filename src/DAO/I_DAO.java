@@ -12,4 +12,5 @@ public interface I_DAO {
 
     void deleteProduit(I_Produit produit);
     void modifierStockProduit(I_Produit produit);
+    void close();
 }
