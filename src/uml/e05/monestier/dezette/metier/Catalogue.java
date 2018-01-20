@@ -100,7 +100,7 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean acheterStock(String nomProduit, int qteAchetee) {
-        if(produitExiste(nomProduit)){
+        if(produitExiste(nomProduit) && qteAchetee >0){
             I_Produit p = getProduit(nomProduit);
             p.ajouter(qteAchetee);
             qteAchetee = p.getQuantite();
@@ -175,10 +175,10 @@ public class Catalogue implements I_Catalogue {
     public String toString() {
         String sCatalogue = "";
         for (I_Produit p:Produits) {
-            sCatalogue = sCatalogue + p.toString() + System.lineSeparator();
+            sCatalogue = sCatalogue + p.toString() + "\n";
         }
         java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
-        sCatalogue = sCatalogue + System.lineSeparator() + "Montant total TTC du stock : " + df.format(this.getMontantTotalTTC()) + " €";
+        sCatalogue = sCatalogue + "\nMontant total TTC du stock : " + df.format(this.getMontantTotalTTC()) + " €";
         sCatalogue =  sCatalogue.replaceAll("\\.",",");
         return sCatalogue;
     }
