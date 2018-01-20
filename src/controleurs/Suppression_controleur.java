@@ -6,8 +6,8 @@ import javax.swing.*;
 
 public class Suppression_controleur {
 
-    public boolean supprimerProduit(JComboBox pNomProduit, I_Catalogue produits){
-        String nomProduit = String.valueOf(pNomProduit.getSelectedItem());
+    public boolean supprimerProduit(JComboBox nomProduitSelectionne, I_Catalogue produits){
+        String nomProduit = String.valueOf(nomProduitSelectionne.getSelectedItem());
 
         return produits.removeProduit(nomProduit);
     }

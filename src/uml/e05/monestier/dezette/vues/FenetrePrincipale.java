@@ -110,7 +110,7 @@ tabProduits = c1.getNomProduits();
 	}
 
 	public void windowClosing(WindowEvent arg0) {
-		System.out.println("Au revoir");
+    	getCtrl().close();
 		System.exit(0);
 	}
 

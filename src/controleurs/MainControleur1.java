@@ -26,11 +26,11 @@ public class MainControleur1 {
     private ControleurAchatVente controleurAchatVente;
     private Suppression_controleur suppressionControleur;
     
-    private static I_Catalogue Produits=new Catalogue();
+    private static I_Catalogue Produits;
     private static MainControleur1 instance;
     
     private MainControleur1(){
-        
+        Produits=new Catalogue();
     }
     
     public static MainControleur1 getInstance(){
@@ -48,18 +48,17 @@ public class MainControleur1 {
         return Produits.getNomProduits();
     }
     
-    public boolean creerPdt(JTextField sNom, JTextField sPrixUnit, JTextField sQteStock){
+    public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie){
         if(creationControleur==null){
             creationControleur=new Creation_controleur();
         }
-        return creationControleur.creerPdt(sNom, sPrixUnit, sQteStock, Produits);
+        return creationControleur.creerPdt(nomSaisi, prixUnitaireSaisi, quantiteSaisie, Produits);
     }
-    public boolean achatProduit(JTextField saisie,String n){
+    public boolean achatProduit(JTextField saisie,String nom){
         if(controleurAchatVente==null){
             controleurAchatVente=new ControleurAchatVente();
         }
-        System.out.println("initialisation contrôleur achat Vente");
-        return controleurAchatVente.enregistrerAchat(saisie,n,Produits);
+        return controleurAchatVente.enregistrerAchat(saisie,nom,Produits);
     }
 
     public boolean supprimerProduit(JComboBox<String> nomProduit){
@@ -73,11 +72,14 @@ public class MainControleur1 {
 
 
 
-    public boolean venteProduit(JTextField txtQuantite, String n) {
+    public boolean venteProduit(JTextField txtQuantite, String nomProduit) {
         if(controleurAchatVente==null){
             controleurAchatVente=new ControleurAchatVente();
         }
-        return controleurAchatVente.enregistrerVente(txtQuantite,n,Produits);
+        return controleurAchatVente.enregistrerVente(txtQuantite,nomProduit,Produits);
+    }
+    public void close(){
+        Produits.close();
     }
 
 }

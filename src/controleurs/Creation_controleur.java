@@ -16,20 +16,17 @@ import javax.swing.*;
  * @author prax
  */
 public class Creation_controleur {
-    
-   
-    
 
-    public boolean creerPdt(JTextField sNom, JTextField sPrixUnit, JTextField sQteStock, I_Catalogue produits) {
-        String nom=sNom.getText();
+    public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie, I_Catalogue produits) {
+        String nom=nomSaisi.getText();
         boolean prixValide;
-        prixValide = verifierPrix(sPrixUnit);
+        prixValide = verifierPrix(prixUnitaireSaisi);
         if(prixValide == true){
          if(produitExiste(nom,produits)==false){
-                float prix = Float.parseFloat(sPrixUnit.getText());
-                int qte=Integer.parseInt(sQteStock.getText());
-                Produit p = new Produit(qte,nom,prix);
-                produits.addProduit(p);
+                float prix = Float.parseFloat(prixUnitaireSaisi.getText());
+                int qte=Integer.parseInt(quantiteSaisie.getText());
+                Produit produit = new Produit(qte,nom,prix);
+                produits.addProduit(produit);
          }
         }
        return true;
@@ -50,16 +47,16 @@ public class Creation_controleur {
     }
     
     public boolean produitExiste(String nom,I_Catalogue Produits){
-        boolean res=false;
-        String[] nomPdt=Produits.getNomProduits();
+        boolean produitExiste=false;
+        String[] nomsProduits=Produits.getNomProduits();
         int i=0;
-        while(i<nomPdt.length && res==false){
-            if(nomPdt[i].equals(nom)){
-                res=true;
+        while(i<nomsProduits.length && produitExiste==false){
+            if(nomsProduits[i].equals(nom)){
+                produitExiste=true;
             }
             i++;
         }
-        return res;
+        return produitExiste;
     }
 
 }

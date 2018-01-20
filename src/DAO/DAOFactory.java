@@ -8,9 +8,9 @@ public class DAOFactory {
         return new DAO();
     }
     public I_DAO createXMLDAO(){
-        return new AdapteurDAO();
+        return new AdapteurXML();
     }
-    public I_DAO mockDAO(){
+    public I_DAO createMockDAO(){
         return new MockDAO();
 
     }
