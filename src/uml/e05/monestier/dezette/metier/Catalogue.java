@@ -21,8 +21,8 @@ public class Catalogue implements I_Catalogue {
     private I_DAO connexion;
 
     public Catalogue() {
-
-        connexion=new DAO();
+        DAOFactory factory=new DAOFactory();
+        connexion=factory.createXMLDAO();
         this.addProduits(connexion.findAll());
 
         
@@ -87,7 +87,7 @@ public class Catalogue implements I_Catalogue {
 
         while (i < Produits.size() && hasBeenRemoved == false) {
             if (Produits.get(i).getNom().equals(nom)) {
-                pdao.deleteProduit(nom);
+                pdao.deleteProduit(Produits.get(i));
                 hasBeenRemoved = Produits.remove(Produits.get(i));
             } else {
                 i++;
@@ -104,7 +104,7 @@ public class Catalogue implements I_Catalogue {
             I_Produit p = getProduit(nomProduit);
             p.ajouter(qteAchetee);
             qteAchetee = p.getQuantite();
-            connexion.modifierStockProduit(nomProduit,qteAchetee);
+            connexion.modifierStockProduit(p);
             return true;
         }else{
             return false;
@@ -117,7 +117,7 @@ public class Catalogue implements I_Catalogue {
         if(qteVendue>0 && qteVendue<p.getQuantite()){
             p.enlever(qteVendue);
             qteVendue = p.getQuantite();
-            connexion.modifierStockProduit(nomProduit,qteVendue);
+            connexion.modifierStockProduit(p);
             return true;
         }else{
             return false;

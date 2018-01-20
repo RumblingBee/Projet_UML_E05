@@ -3,12 +3,10 @@ package DAO;
 public class DAOFactory {
     public DAOFactory() {
     }
-    public void createDAO(){
-        I_DAO dao = new DAO();
-
-
-
-
-
+    public I_DAO createDAO(){
+        return new DAO();
+    }
+    public I_DAO createXMLDAO(){
+        return new AdapteurDAO();
     }
 }
