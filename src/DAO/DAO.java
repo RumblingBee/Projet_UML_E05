@@ -95,9 +95,10 @@ public class DAO implements I_DAO {
 
     }
     @Override
-    public void deleteProduit(String nomProduit){
+    public void deleteProduit(I_Produit produit){
        
         PreparedStatement deleteProduitPreparedStatement = null;
+        String nomProduit=produit.getNom();
         try {
            String deleteProduitString = "DELETE FROM PRODUITS WHERE NOMPRODUIT = ?";
            deleteProduitPreparedStatement = cn.prepareStatement(deleteProduitString);
@@ -116,8 +117,11 @@ public class DAO implements I_DAO {
     }
 
     @Override
-    public void modifierStockProduit(String nomProduit, int stock) {
+    public void modifierStockProduit(I_Produit produit) {
         PreparedStatement acheterProduitPreparedStatement = null;
+
+        int stock=produit.getQuantite();
+        String nomProduit=produit.getNom();
         try {
             String acheterProduitString = "UPDATE PRODUITS SET QTEPRODUIT = ? WHERE NOMPRODUIT = ? ";
             acheterProduitPreparedStatement = cn.prepareStatement(acheterProduitString);
@@ -133,7 +137,6 @@ public class DAO implements I_DAO {
 
 
 
-    @Override
     public void close(){
         try{
             cn.close();
