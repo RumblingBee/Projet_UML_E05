@@ -1,4 +1,4 @@
-package metier;
+package uml.e05.monestier.dezette.metier;
 
 public interface I_Produit {
 

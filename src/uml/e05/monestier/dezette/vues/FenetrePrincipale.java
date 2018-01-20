@@ -1,8 +1,14 @@
 package uml.e05.monestier.dezette.vues;
 
-import java.awt.*;
-import java.awt.event.*;
+import controleurs.MainControleur1;
+import uml.e05.monestier.dezette.metier.Catalogue;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 
 
@@ -17,6 +23,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
+	private static MainControleur1 ctrl=MainControleur1.getInstance();
+
+    public static MainControleur1 getCtrl() {
+        return ctrl;
+    }
 
 	
 	public FenetrePrincipale() {
@@ -70,12 +81,15 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 /* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
-		String[] tabProduits = new String[] { "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
+		Catalogue c1 = new Catalogue();
+String[] tabProduits = new String[1];
+tabProduits = c1.getNomProduits();
+                
 /* M�me chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage(ctrl.getProduits().toString());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
@@ -86,9 +100,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(tabProduits);
+			new FenetreAchat(ctrl.getNomProduits());
 		if (e.getSource() == btVente)
-			new FenetreVente(tabProduits);
+			new FenetreVente(ctrl.getNomProduits());
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);
@@ -96,7 +110,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	}
 
 	public void windowClosing(WindowEvent arg0) {
-		System.out.println("Au revoir");
+    	getCtrl().close();
 		System.exit(0);
 	}
 
@@ -111,6 +125,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	
 	public static void main(String[] args) {
 		new FenetrePrincipale();
+                
+            
 	}
 
 }

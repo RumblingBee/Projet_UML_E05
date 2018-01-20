@@ -5,7 +5,11 @@
  */
 package controleurs;
 
-import javax.swing.JTextField;
+import uml.e05.monestier.dezette.metier.I_Catalogue;
+import uml.e05.monestier.dezette.metier.Produit;
+
+import javax.swing.*;
+
 
 /**
  *
@@ -13,27 +17,46 @@ import javax.swing.JTextField;
  */
 public class Creation_controleur {
 
-    public boolean creerPdt(String nom, JTextField prixUnit, int qteStock) {
+    public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie, I_Catalogue produits) {
+        String nom=nomSaisi.getText();
         boolean prixValide;
-        prixValide = verifierPrix(prixUnit);
+        prixValide = verifierPrix(prixUnitaireSaisi);
         if(prixValide == true){
-            
+         if(produitExiste(nom,produits)==false){
+                float prix = Float.parseFloat(prixUnitaireSaisi.getText());
+                int qte=Integer.parseInt(quantiteSaisie.getText());
+                Produit produit = new Produit(qte,nom,prix);
+                produits.addProduit(produit);
+         }
         }
-        return false;
+       return true;
     }
 
     public boolean verifierPrix(JTextField prixProduit) {
         float prix;
         try {
             prix = Float.parseFloat(prixProduit.getText());
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
-        if (prix < 0) {
+        if (prix <= 0) {
             return false;
         } else {
             return true;
         }
+    }
+    
+    public boolean produitExiste(String nom,I_Catalogue Produits){
+        boolean produitExiste=false;
+        String[] nomsProduits=Produits.getNomProduits();
+        int i=0;
+        while(i<nomsProduits.length && produitExiste==false){
+            if(nomsProduits[i].equals(nom)){
+                produitExiste=true;
+            }
+            i++;
+        }
+        return produitExiste;
     }
 
 }

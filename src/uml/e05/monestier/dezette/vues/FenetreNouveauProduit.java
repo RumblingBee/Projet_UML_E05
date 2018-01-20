@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 	private JTextField txtPrixHT;
@@ -49,7 +50,14 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-                Creation_controleur ctrl=new Creation_controleur();
+            
+            
+            
+                if(FenetrePrincipale.getCtrl().creerPdt(txtNom, txtPrixHT, txtQte)){
+                   
+                }else{
+                    
+                }
 		this.dispose();
 	}
 

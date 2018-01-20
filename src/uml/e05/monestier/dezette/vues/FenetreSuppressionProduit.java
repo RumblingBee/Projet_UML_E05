@@ -29,6 +29,12 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(FenetrePrincipale.getCtrl().supprimerProduit(combo)){
+
+		}else{
+
+		}
+
 		this.dispose();
 	}
 
