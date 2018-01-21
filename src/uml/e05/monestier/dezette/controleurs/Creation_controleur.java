@@ -18,21 +18,25 @@ import javax.swing.*;
 public class Creation_controleur {
 
     public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie, I_Catalogue produits) {
+        int qte=Integer.parseInt(quantiteSaisie.getText());
         String nom=nomSaisi.getText();
         boolean prixValide;
         prixValide = verifierPrix(prixUnitaireSaisi);
         if(prixValide == true){
-         if(produitExiste(nom,produits)==false){
-                float prix = Float.parseFloat(prixUnitaireSaisi.getText());
-                int qte=Integer.parseInt(quantiteSaisie.getText());
-                Produit produit = new Produit(qte,nom,prix);
-                produits.addProduit(produit);
-         }
+            if(qte > 0){
+                 if(produitExiste(nom,produits)==false) {
+                     float prix = Float.parseFloat(prixUnitaireSaisi.getText());
+
+                     Produit produit = new Produit(qte, nom, prix);
+                     produits.addProduit(produit);
+                     return true;
+           }
+          }
         }
-       return true;
+       return false;
     }
 
-    public boolean verifierPrix(JTextField prixProduit) {
+    private boolean verifierPrix(JTextField prixProduit) {
         float prix;
         try {
             prix = Float.parseFloat(prixProduit.getText());
@@ -46,7 +50,7 @@ public class Creation_controleur {
         }
     }
     
-    public boolean produitExiste(String nom,I_Catalogue Produits){
+    private boolean produitExiste(String nom, I_Catalogue Produits){
         boolean produitExiste=false;
         String[] nomsProduits=Produits.getNomProduits();
         int i=0;
