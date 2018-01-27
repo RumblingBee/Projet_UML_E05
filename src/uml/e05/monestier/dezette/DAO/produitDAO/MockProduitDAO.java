@@ -1,10 +1,10 @@
-package uml.e05.monestier.dezette.DAO;
+package uml.e05.monestier.dezette.DAO.produitDAO;
 
 import uml.e05.monestier.dezette.metier.I_Produit;
 
 import java.util.ArrayList;
 
-public class MockDAO implements I_DAO {
+public class MockProduitDAO implements I_produitDAO {
     @Override
     public ArrayList<I_Produit> findAll() {
         return null;

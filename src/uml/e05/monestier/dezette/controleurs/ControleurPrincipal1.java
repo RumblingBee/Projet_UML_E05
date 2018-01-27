@@ -22,12 +22,15 @@ public class ControleurPrincipal1 {
     private ControleurCreation creationControleur;
     private ControleurAchatVente controleurAchatVente;
     private ControleurSuppression suppressionControleur;
+    private ControleurDAO controleurDAO;
     
     private static I_Catalogue Produits;
     private static ControleurPrincipal1 instance;
     
     private ControleurPrincipal1(){
         Produits=new Catalogue();
+        Produits.initialisationCatalogue();
+        controleurDAO = new ControleurDAO();
     }
     
     public static ControleurPrincipal1 getInstance(){
@@ -44,6 +47,9 @@ public class ControleurPrincipal1 {
     public String[] getNomProduits(){
         return Produits.getNomProduits();
     }
+
+    public String[] getNomCatalogues(){return controleurDAO.recupererNomCatalogues();}
+
     
     public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie){
         if(creationControleur==null){

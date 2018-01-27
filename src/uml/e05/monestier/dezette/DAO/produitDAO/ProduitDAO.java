@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uml.e05.monestier.dezette.DAO;
+package uml.e05.monestier.dezette.DAO.produitDAO;
 
 
 
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author clement
  */
-public class DAO implements I_DAO {
+public class ProduitDAO implements I_produitDAO {
 
     private Connection cn = null;
     private ResultSet rs = null;
@@ -31,7 +31,7 @@ public class DAO implements I_DAO {
     private String username = "monestierc";
     private String password = "1105018199N";
 
-    public DAO() {
+    public ProduitDAO() {
 
 
      try{
