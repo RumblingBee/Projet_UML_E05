@@ -1,7 +1,6 @@
 package uml.e05.monestier.dezette.vues;
 
-import uml.e05.monestier.dezette.controleurs.MainControleur1;
-import uml.e05.monestier.dezette.metier.Catalogue;
+import uml.e05.monestier.dezette.controleurs.ControleurPrincipal1;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,9 +22,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
-	private static MainControleur1 ctrl=MainControleur1.getInstance();
+	private static ControleurPrincipal1 ctrl= ControleurPrincipal1.getInstance();
 
-    public static MainControleur1 getCtrl() {
+    public static ControleurPrincipal1 getCtrl() {
         return ctrl;
     }
 

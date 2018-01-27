@@ -15,7 +15,7 @@ import javax.swing.*;
  *
  * @author prax
  */
-public class Creation_controleur {
+public class ControleurCreation {
 
     public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie, I_Catalogue produits) {
         int qte=Integer.parseInt(quantiteSaisie.getText());

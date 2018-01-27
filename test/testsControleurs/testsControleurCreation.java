@@ -2,8 +2,7 @@ package testsControleurs;
 
 import org.junit.Before;
 import org.junit.Test;
-import uml.e05.monestier.dezette.controleurs.ControleurAchatVente;
-import uml.e05.monestier.dezette.controleurs.Creation_controleur;
+import uml.e05.monestier.dezette.controleurs.ControleurCreation;
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
 
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 public class testsControleurCreation {
     I_Catalogue cat;
-    Creation_controleur controleurCreation;
+    ControleurCreation controleurCreation;
     JTextField quantiteSaisie;
     JTextField nomSaisie;
     JTextField prixSaisie;
@@ -26,7 +25,7 @@ public class testsControleurCreation {
         cat = new Catalogue();
         cat.clear();
         cat.addProduit("produitDeTest",10,10);
-        controleurCreation = new Creation_controleur();
+        controleurCreation = new ControleurCreation();
 
         quantiteSaisie = new JTextField();
         prixSaisie = new JTextField();
