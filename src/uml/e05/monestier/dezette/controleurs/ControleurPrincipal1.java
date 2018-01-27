@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controleurs;
+package uml.e05.monestier.dezette.controleurs;
 
 
 import javax.swing.*;
@@ -12,30 +12,27 @@ import javax.swing.*;
 
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
-import uml.e05.monestier.dezette.metier.Produit;
-
-import javax.swing.*;
 
 /**
  *
  * @author clement
  */
-public class MainControleur1 {
+public class ControleurPrincipal1 {
     
-    private Creation_controleur creationControleur;
+    private ControleurCreation creationControleur;
     private ControleurAchatVente controleurAchatVente;
-    private Suppression_controleur suppressionControleur;
+    private ControleurSuppression suppressionControleur;
     
     private static I_Catalogue Produits;
-    private static MainControleur1 instance;
+    private static ControleurPrincipal1 instance;
     
-    private MainControleur1(){
+    private ControleurPrincipal1(){
         Produits=new Catalogue();
     }
     
-    public static MainControleur1 getInstance(){
+    public static ControleurPrincipal1 getInstance(){
         if(instance==null){
-            instance=new MainControleur1();
+            instance=new ControleurPrincipal1();
         }
         return instance;
     }
@@ -50,7 +47,7 @@ public class MainControleur1 {
     
     public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie){
         if(creationControleur==null){
-            creationControleur=new Creation_controleur();
+            creationControleur=new ControleurCreation();
         }
         return creationControleur.creerPdt(nomSaisi, prixUnitaireSaisi, quantiteSaisie, Produits);
     }
@@ -63,7 +60,7 @@ public class MainControleur1 {
 
     public boolean supprimerProduit(JComboBox<String> nomProduit){
         if(suppressionControleur==null){
-            suppressionControleur=new Suppression_controleur();
+            suppressionControleur=new ControleurSuppression();
         }
         return suppressionControleur.supprimerProduit(nomProduit, Produits);
     }

@@ -6,9 +6,8 @@
 package uml.e05.monestier.dezette.metier;
 
 
-import DAO.*;
+import uml.e05.monestier.dezette.DAO.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +46,7 @@ public class Catalogue implements I_Catalogue {
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
         nom = supprimerTabulation(nom);
-        Produit produit = new Produit(nom.trim(),prix,qte);
+        I_Produit produit = new Produit(nom.trim(),prix,qte);
         if (produitValide(produit)) {
             return produits.add(produit);
         }
