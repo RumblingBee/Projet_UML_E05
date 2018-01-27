@@ -1,8 +1,7 @@
-package DAO;
+package uml.e05.monestier.dezette.DAO;
 
 import uml.e05.monestier.dezette.metier.I_Produit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface I_DAO {

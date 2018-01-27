@@ -1,4 +1,4 @@
-package DAO;
+package uml.e05.monestier.dezette.DAO;
 
 public class DAOFactory {
     public DAOFactory() {
