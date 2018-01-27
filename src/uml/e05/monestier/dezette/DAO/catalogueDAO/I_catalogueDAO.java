@@ -9,8 +9,8 @@ public interface I_catalogueDAO
 {
     List<I_Catalogue> findAll();
 
-    void create(I_Catalogue produit);
-    void deleteCatalogue(I_Produit produit);
+    void create(String nomCatalogue);
+    void deleteCatalogue(String nomCatalogue);
     void close();
     String[] recupererNomsCatalogues();
 }

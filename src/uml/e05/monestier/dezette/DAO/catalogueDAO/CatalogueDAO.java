@@ -69,13 +69,27 @@ public class CatalogueDAO implements I_catalogueDAO {
     }
 
 
+
     @Override
-    public void create(I_Catalogue produit) {
+    public void create(String nomCatalogue) {
+        PreparedStatement insertCataloguePreparedStatement = null;
+
+        try{
+            String insertCatalogueString = "CALL INSERTCATALOGUE(?)";
+            insertCataloguePreparedStatement = cn.prepareStatement(insertCatalogueString);
+
+            insertCataloguePreparedStatement.setString(1,nomCatalogue);
+
+            insertCataloguePreparedStatement.executeQuery();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 
     }
 
     @Override
-    public void deleteCatalogue(I_Produit produit) {
+    public void deleteCatalogue(String nomCatalogue) {
 
     }
 

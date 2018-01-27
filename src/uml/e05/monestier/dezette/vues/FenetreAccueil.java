@@ -95,6 +95,7 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			if (!texteAjout.equals(""))
 			{
 				System.out.println("ajouter le catalogue "+texteAjout);
+				controleurPrincipal1.creerCatalogue(txtAjouter);
 				txtAjouter.setText(null);
 			}
 		}

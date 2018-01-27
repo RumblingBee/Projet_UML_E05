@@ -50,6 +50,10 @@ public class ControleurPrincipal1 {
 
     public String[] getNomCatalogues(){return controleurDAO.recupererNomCatalogues();}
 
+    public void creerCatalogue(JTextField nomCatalogue){
+        controleurDAO.creerCatalogue(nomCatalogue.getText());
+    }
+
     
     public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie){
         if(creationControleur==null){
@@ -57,6 +61,9 @@ public class ControleurPrincipal1 {
         }
         return creationControleur.creerPdt(nomSaisi, prixUnitaireSaisi, quantiteSaisie, Produits);
     }
+
+
+
     public boolean achatProduit(JTextField saisie,String nom){
         if(controleurAchatVente==null){
             controleurAchatVente=new ControleurAchatVente();
