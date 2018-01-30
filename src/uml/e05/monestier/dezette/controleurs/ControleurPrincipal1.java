@@ -53,6 +53,7 @@ public class ControleurPrincipal1 {
     public void creerCatalogue(JTextField nomCatalogue){
         controleurDAO.creerCatalogue(nomCatalogue.getText());
     }
+    public void supprimerCatalogue(JComboBox nomCatalogue){ controleurDAO.supprimerCatalogue( (String)nomCatalogue.getSelectedItem()); }
 
     
     public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie){

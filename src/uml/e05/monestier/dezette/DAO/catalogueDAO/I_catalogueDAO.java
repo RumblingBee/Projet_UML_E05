@@ -10,7 +10,7 @@ public interface I_catalogueDAO
     List<I_Catalogue> findAll();
 
     void create(String nomCatalogue);
-    void deleteCatalogue(String nomCatalogue);
+    void supprimerCatalogue(String nomCatalogue);
     void close();
     String[] recupererNomsCatalogues();
 }

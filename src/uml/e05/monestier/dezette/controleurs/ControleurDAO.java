@@ -38,20 +38,29 @@ public class ControleurDAO {
     }
     public boolean creerCatalogue(String nomCatalogue){
 
-        boolean catalogueExistePas = true;
-
-        for(String s : recupererNomCatalogues()) {
-            if(s == nomCatalogue){
-               catalogueExistePas = false;
-            }
-        }
-        if (catalogueExistePas) {
+        if (catalogueExiste(nomCatalogue) == false) {
             catalogueDAO.create(nomCatalogue);
         }
-            return catalogueExistePas;
+            return !catalogueExiste(nomCatalogue);
+    }
+    public boolean supprimerCatalogue(String nomCatalogue){
+
+        if (catalogueExiste(nomCatalogue) == true) {
+            catalogueDAO.supprimerCatalogue(nomCatalogue);
+        }
+        return catalogueExiste(nomCatalogue);
     }
 
+    private boolean catalogueExiste(String nomCatalogue) {
+        boolean catalogueExiste = false;
 
+        for(String s : recupererNomCatalogues()) {
+            if(s.equals(nomCatalogue)){
+               catalogueExiste = true;
+            }
+        }
+        return catalogueExiste;
+    }
 
 
 }

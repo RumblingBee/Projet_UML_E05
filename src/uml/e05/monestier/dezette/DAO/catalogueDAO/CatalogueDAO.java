@@ -89,8 +89,17 @@ public class CatalogueDAO implements I_catalogueDAO {
     }
 
     @Override
-    public void deleteCatalogue(String nomCatalogue) {
+    public void supprimerCatalogue(String nomCatalogue) {
+        PreparedStatement deleteCataloguePreparedStatement = null;
+        try {
+            String deleteCatalogueString = "DELETE  FROM CATALOGUES WHERE NOMCATALOGUE = ?";
+            deleteCataloguePreparedStatement = cn.prepareStatement(deleteCatalogueString);
+            deleteCataloguePreparedStatement.setString(1,nomCatalogue);
+            deleteCataloguePreparedStatement.executeQuery();
 
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
