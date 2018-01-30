@@ -22,12 +22,15 @@ public class ControleurPrincipal1 {
     private ControleurCreation creationControleur;
     private ControleurAchatVente controleurAchatVente;
     private ControleurSuppression suppressionControleur;
+    private ControleurDAO controleurDAO;
     
     private static I_Catalogue Produits;
     private static ControleurPrincipal1 instance;
     
     private ControleurPrincipal1(){
         Produits=new Catalogue();
+        Produits.initialisationCatalogue();
+        controleurDAO = new ControleurDAO();
     }
     
     public static ControleurPrincipal1 getInstance(){
@@ -44,6 +47,14 @@ public class ControleurPrincipal1 {
     public String[] getNomProduits(){
         return Produits.getNomProduits();
     }
+
+    public String[] getNomCatalogues(){return controleurDAO.recupererNomCatalogues();}
+
+    public void creerCatalogue(JTextField nomCatalogue){
+        controleurDAO.creerCatalogue(nomCatalogue.getText());
+    }
+    public void supprimerCatalogue(JComboBox nomCatalogue){ controleurDAO.supprimerCatalogue( (String)nomCatalogue.getSelectedItem()); }
+
     
     public boolean creerPdt(JTextField nomSaisi, JTextField prixUnitaireSaisi, JTextField quantiteSaisie){
         if(creationControleur==null){
@@ -51,6 +62,9 @@ public class ControleurPrincipal1 {
         }
         return creationControleur.creerPdt(nomSaisi, prixUnitaireSaisi, quantiteSaisie, Produits);
     }
+
+
+
     public boolean achatProduit(JTextField saisie,String nom){
         if(controleurAchatVente==null){
             controleurAchatVente=new ControleurAchatVente();

@@ -13,7 +13,10 @@ public interface I_Catalogue {
 	String[] getNomProduits();
 	double getMontantTotalTTC();
 	String toString();
+	String getNomCatalogue();
 	void close();
 	void clear();
+	void initialisationCatalogue();
+
 
 }

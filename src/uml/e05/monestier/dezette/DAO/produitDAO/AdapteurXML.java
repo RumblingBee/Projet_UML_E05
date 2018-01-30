@@ -1,10 +1,10 @@
-package uml.e05.monestier.dezette.DAO;
+package uml.e05.monestier.dezette.DAO.produitDAO;
 
 import uml.e05.monestier.dezette.metier.I_Produit;
 
 import java.util.List;
 
-public class AdapteurXML implements I_DAO{
+public class AdapteurXML implements I_produitDAO {
 
     private ProduitDAO_XML produitDAO_xml;
 

@@ -6,7 +6,9 @@
 package uml.e05.monestier.dezette.metier;
 
 
-import uml.e05.monestier.dezette.DAO.*;
+import uml.e05.monestier.dezette.DAO.produitDAO.ProduitDAO;
+import uml.e05.monestier.dezette.DAO.produitDAO.I_produitDAO;
+import uml.e05.monestier.dezette.factory.DAOFactoryAbstract;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,17 +21,23 @@ import java.util.List;
 public class Catalogue implements I_Catalogue {
 
     private List<I_Produit> produits;
-    private I_DAO connexion;
+    private I_produitDAO connexion;
+    private String nom;
 
     public Catalogue() {
-
+        this.nom = "Catalogue sans nom";
         produits =  new ArrayList<>();
-        DAOFactory factory=new DAOFactory();
-        connexion=factory.createMockDAO();
-        this.addProduits(connexion.findAll());
+        connexion= DAOFactoryAbstract.getInstance().createProduitDAO();
+
 
     }
-    
+    public Catalogue(String nom) {
+        this.nom = nom;
+        produits =  new ArrayList<>();
+        connexion=DAOFactoryAbstract.getInstance().createProduitDAO();
+
+
+    }
     
 
     @Override
@@ -80,7 +88,7 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean removeProduit(String nom) {
-        I_DAO pdao = new DAO();
+        I_produitDAO pdao = new ProduitDAO();
         boolean produitSupprime = false;
         int indexProduit = 0;
 
@@ -100,7 +108,7 @@ public class Catalogue implements I_Catalogue {
         return produits.get(indexProduit).getNom().equals(nom);
     }
 
-    private boolean supprimerProduit(I_DAO pdao, int indexProduit) {
+    private boolean supprimerProduit(I_produitDAO pdao, int indexProduit) {
         boolean produitSupprime;
         pdao.deleteProduit(produits.get(indexProduit));
         produitSupprime = produits.remove(produits.get(indexProduit));
@@ -184,10 +192,20 @@ public class Catalogue implements I_Catalogue {
     }
 
     @Override
+    public void initialisationCatalogue() {
+        this.addProduits(connexion.findAll());
+    }
+
+    @Override
     public String toString() {
         String descriptionCatalogue = recuperationDescriptionProduits();
         descriptionCatalogue = miseEnFormeDescriptionCatalogue(descriptionCatalogue);
         return descriptionCatalogue;
+    }
+
+    @Override
+    public String getNomCatalogue() {
+        return this.nom;
     }
 
     private String miseEnFormeDescriptionCatalogue(String descriptionCatalogue) {

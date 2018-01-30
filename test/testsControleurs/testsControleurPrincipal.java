@@ -27,7 +27,8 @@ public class testsControleurPrincipal {
 
 
         cat = new Catalogue();
-        cat.clear();
+        cat.initialisationCatalogue();
+
         cat.addProduit("produitDeTest",10,10);
         cat.addProduit("produitDeTest2",20,30);
 
