@@ -26,30 +26,9 @@ public class ProduitDAO implements I_produitDAO {
     private ResultSet rs = null;
     private Statement st = null;
 
-
-    private String url = "jdbc:oracle:thin:@162.38.222.149:1521:iut";
-    private String username = "monestierc";
-    private String password = "1105018199N";
-
-    public ProduitDAO() {
-
-
-     try{
-
-         Class.forName("oracle.jdbc.OracleDriver");
-         try {
-             cn = DriverManager.getConnection(url,username,password);
-         }catch (SQLException e){
-             e.printStackTrace();
-         }
-
-     }catch (Exception e){
-         e.printStackTrace();
-     }
-
+    public ProduitDAO(Connection factoryCn) {
+        cn = factoryCn;
     }
-
-
 
     @Override
     public List<I_Produit> findAll(){

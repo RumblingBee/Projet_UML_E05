@@ -9,6 +9,7 @@ package uml.e05.monestier.dezette.metier;
 import uml.e05.monestier.dezette.DAO.produitDAO.ProduitDAO;
 import uml.e05.monestier.dezette.DAO.produitDAO.I_produitDAO;
 import uml.e05.monestier.dezette.factory.DAOFactoryAbstract;
+import uml.e05.monestier.dezette.factory.FactoryDAORelationnel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,7 +89,7 @@ public class Catalogue implements I_Catalogue {
 
     @Override
     public boolean removeProduit(String nom) {
-        I_produitDAO pdao = new ProduitDAO();
+        I_produitDAO pdao = FactoryDAORelationnel.getInstance().createProduitDAO();
         boolean produitSupprime = false;
         int indexProduit = 0;
 
