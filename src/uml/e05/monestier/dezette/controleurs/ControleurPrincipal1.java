@@ -23,16 +23,27 @@ public class ControleurPrincipal1 {
     private ControleurAchatVente controleurAchatVente;
     private ControleurSuppression suppressionControleur;
     private ControleurDAO controleurDAO;
-    
+    private String catalogueSelectionne;
     private static I_Catalogue Produits;
     private static ControleurPrincipal1 instance;
-    
+
+    public String getCatalogueSelectionne() {
+        return catalogueSelectionne;
+    }
+
+    public void setCatalogueSelectionne(String catalogueSelectionne) {
+        this.catalogueSelectionne = catalogueSelectionne;
+    }
+
     private ControleurPrincipal1(){
         Produits=new Catalogue();
-        Produits.initialisationCatalogue();
         controleurDAO = new ControleurDAO();
     }
-    
+
+    public void buildCatalogue(){
+        Produits.initialisationCatalogue(this.catalogueSelectionne);
+    }
+
     public static ControleurPrincipal1 getInstance(){
         if(instance==null){
             instance=new ControleurPrincipal1();

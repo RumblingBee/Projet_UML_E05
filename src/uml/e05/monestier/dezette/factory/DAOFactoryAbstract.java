@@ -8,7 +8,7 @@ public abstract class DAOFactoryAbstract {
 
     public static DAOFactoryAbstract getInstance() {
         if (ourInstance==null){
-            ourInstance=new FactoryDAORelationnel();
+            ourInstance=new FactoryDAOMock();
         }
         return ourInstance;
     }

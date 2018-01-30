@@ -53,7 +53,6 @@ public class CatalogueDAO implements I_catalogueDAO {
     }
 
 
-
     @Override
     public void create(String nomCatalogue) {
         PreparedStatement insertCataloguePreparedStatement = null;

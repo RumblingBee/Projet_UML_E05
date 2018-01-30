@@ -9,6 +9,7 @@ package uml.e05.monestier.dezette.DAO.produitDAO;
 
 
 
+import uml.e05.monestier.dezette.controleurs.ControleurPrincipal1;
 import uml.e05.monestier.dezette.metier.I_Produit;
 import uml.e05.monestier.dezette.metier.Produit;
 
@@ -31,13 +32,17 @@ public class ProduitDAO implements I_produitDAO {
     }
 
     @Override
-    public List<I_Produit> findAll(){
+    public List<I_Produit> findAll(String nomCatalogue){
 
         List<I_Produit> produits = new ArrayList<>();
+        PreparedStatement selectProduitPreparedStatement = null;
 
         try {
-            st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery("SELECT * FROM PRODUITS");
+            String selectProductString = "SELECT * from PRODUITS JOIN CATALOGUES C2 ON PRODUITS.CATALOGUE = C2.CODECATALOGUE\n" +
+                    "WHERE NOMCATALOGUE=?";
+            selectProduitPreparedStatement= cn.prepareStatement(selectProductString);
+            selectProduitPreparedStatement.setString(1,nomCatalogue);
+            selectProduitPreparedStatement.executeQuery();
             peuplerCatalogue(produits);
 
         }catch(SQLException e){
@@ -56,21 +61,26 @@ public class ProduitDAO implements I_produitDAO {
     @Override
     public void create(I_Produit produit){
         PreparedStatement insertProduitPreparedStatement = null;
+        String nomCatalogue = ControleurPrincipal1.getInstance().getCatalogueSelectionne();
+        int idCatalogue = getIdCatalogue(nomCatalogue);
 
         try{
-            String insertProduitString = "CALL INSERTPRODUIT(?,?,?)";
+            String insertProduitString = "CALL INSERTPRODUIT(?,?,?,?)";
             insertProduitPreparedStatement = cn.prepareStatement(insertProduitString);
 
             insertProduitPreparedStatement.setString(1,produit.getNom());
             insertProduitPreparedStatement.setDouble(2,produit.getPrixUnitaireHT());
             insertProduitPreparedStatement.setInt(3,produit.getQuantite());
+            insertProduitPreparedStatement.setInt(4,idCatalogue);
+
 
             insertProduitPreparedStatement.executeQuery();
+
+
 
         }catch (SQLException e){
             e.printStackTrace();
         }
-
     }
     @Override
     public void deleteProduit(I_Produit produit){
@@ -108,6 +118,25 @@ public class ProduitDAO implements I_produitDAO {
         }catch (SQLException e){
             e.printStackTrace();
         }
+
+    }
+    private int getIdCatalogue(String nomCatalogue){
+
+        PreparedStatement selectProduitPreparedStatement = null;
+
+        int id=0;
+        try {
+            String selectIdCatalogueString = "SELECT CODECATALOGUE from CATALOGUES WHERE NOMCATALOGUE = ? ";
+            selectProduitPreparedStatement= cn.prepareStatement(selectIdCatalogueString);
+            selectProduitPreparedStatement.setString(1,nomCatalogue);
+            rs=selectProduitPreparedStatement.executeQuery();
+            rs.next();
+            id= rs.getInt(1);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return id;
 
     }
 

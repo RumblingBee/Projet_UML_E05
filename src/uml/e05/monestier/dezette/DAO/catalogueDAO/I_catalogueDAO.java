@@ -13,4 +13,5 @@ public interface I_catalogueDAO
     void supprimerCatalogue(String nomCatalogue);
     void close();
     String[] recupererNomsCatalogues();
+
 }
