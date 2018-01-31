@@ -11,23 +11,14 @@ public class ControleurDAO {
 
     private I_catalogueDAO catalogueDAO;
     private I_produitDAO produitDAO;
-    private ControleurDAO instance;
 
 
     protected ControleurDAO() {
 
-        //TODO: FACTORY
-
         catalogueDAO = DAOFactoryAbstract.getInstance().createCatalogueDAO();
 
     }
-    public ControleurDAO getInstance(){
-        if(instance == null){
-            instance = new ControleurDAO();
-        }
-        return instance;
 
-    }
     public List<I_Catalogue> recupererListeCatalogues(){
         return catalogueDAO.findAll();
     }
@@ -59,6 +50,14 @@ public class ControleurDAO {
             }
         }
         return catalogueExiste;
+    }
+
+    public String[] getInfosCatalogues(){
+        return catalogueDAO.toStringAllCatalogue();
+    }
+
+    public int getNbCatalogue(){
+        return catalogueDAO.getCountCatalogue();
     }
 
 

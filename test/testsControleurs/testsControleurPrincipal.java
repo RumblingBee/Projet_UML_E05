@@ -26,7 +26,7 @@ public class testsControleurPrincipal {
         nomSaisie = new JTextField();
 
 
-        cat = new Catalogue();
+        cat = new Catalogue("nomDuCatalogueDeTest");
         cat.initialisationCatalogue("nomDuCatalogueDeTest");
 
         cat.addProduit("produitDeTest",10,10);
@@ -59,6 +59,13 @@ public class testsControleurPrincipal {
 
         assertEquals(cat.getNomProduits(),controleurPrincipal.getNomProduits());
 
+    }
+
+    @Test
+    public void setCatalogueTest(){
+        controleurPrincipal.setCatalogueSelectionne("nomDuCatalogueDeTest");
+
+        assertEquals(controleurPrincipal.getCatalogueSelectionne(),cat.getNomCatalogue());
     }
 
 
