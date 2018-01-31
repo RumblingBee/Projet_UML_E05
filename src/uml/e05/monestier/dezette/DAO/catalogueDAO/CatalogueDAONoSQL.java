@@ -49,12 +49,16 @@ for(Document doc : collectionCat.find()){
 
     @Override
     public void create(String nomCatalogue) {
+Document nouveauCatalogue = new Document()
+        .append("nomCatalogue",nomCatalogue);
+
+mongoDatabase.getCollection("db_catalogues").insertOne(nouveauCatalogue);
 
     }
 
     @Override
     public void supprimerCatalogue(String nomCatalogue) {
-
+mongoDatabase.getCollection("db_catalogues").deleteOne(new Document("nomCatalogue",nomCatalogue));
     }
 
     @Override
