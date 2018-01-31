@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class MockProduitDAO implements I_produitDAO {
     @Override
-    public ArrayList<I_Produit> findAll() {
+    public ArrayList<I_Produit> findAll(String nomCatalogue) {
         return null;
     }
 

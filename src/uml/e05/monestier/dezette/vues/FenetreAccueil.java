@@ -96,6 +96,7 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			{
 				System.out.println("ajouter le catalogue "+texteAjout);
 				controleurPrincipal1.creerCatalogue(txtAjouter);
+				modifierListesCatalogues(controleurPrincipal1.getNomCatalogues());
 				txtAjouter.setText(null);
 			}
 		}
@@ -104,6 +105,7 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			String texteSupprime = (String)cmbSupprimer.getSelectedItem();
 			if (texteSupprime != null) {
 				controleurPrincipal1.supprimerCatalogue(cmbSupprimer);
+				modifierListesCatalogues(controleurPrincipal1.getNomCatalogues());
 				System.out.println("supprime catalogue " + texteSupprime);
 			}
 		}
@@ -113,6 +115,8 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			if (texteSelection != null) 
 			{
 				System.out.println("selectionne catalogue "+texteSelection);
+				controleurPrincipal1.setCatalogueSelectionne(texteSelection);
+				FenetrePrincipale fp=new FenetrePrincipale();
 				this.dispose();
 			}
 		}	

@@ -193,8 +193,8 @@ public class Catalogue implements I_Catalogue {
     }
 
     @Override
-    public void initialisationCatalogue() {
-        this.addProduits(connexion.findAll());
+    public void initialisationCatalogue(String nomCatalogue) {
+        this.addProduits(connexion.findAll(nomCatalogue));
     }
 
     @Override

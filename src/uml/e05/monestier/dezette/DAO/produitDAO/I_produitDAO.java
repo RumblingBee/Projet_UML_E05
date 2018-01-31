@@ -5,7 +5,7 @@ import uml.e05.monestier.dezette.metier.I_Produit;
 import java.util.List;
 
 public interface I_produitDAO {
-    List<I_Produit> findAll();
+    List<I_Produit> findAll(String nomCatalogue);
 
     void create(I_Produit produit);
 

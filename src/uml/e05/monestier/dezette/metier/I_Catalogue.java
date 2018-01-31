@@ -16,7 +16,7 @@ public interface I_Catalogue {
 	String getNomCatalogue();
 	void close();
 	void clear();
-	void initialisationCatalogue();
+	void initialisationCatalogue(String nomCatalogue);
 
 
 }

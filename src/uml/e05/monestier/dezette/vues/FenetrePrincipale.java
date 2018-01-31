@@ -123,6 +123,7 @@ tabProduits = ctrl.getNomProduits();
 	
 	public static void main(String[] args) {
 		new FenetrePrincipale();
+		ctrl.buildCatalogue();
                 
             
 	}
