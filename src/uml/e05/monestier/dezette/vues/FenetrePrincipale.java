@@ -22,7 +22,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
-	private static ControleurPrincipal1 ctrl= ControleurPrincipal1.getInstance();
+	private static ControleurPrincipal1 ctrl;
 
     public static ControleurPrincipal1 getCtrl() {
         return ctrl;
@@ -30,7 +30,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 	
 	public FenetrePrincipale() {
-		
+
+		ctrl=ControleurPrincipal1.getInstance();
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
 		JPanel panAffichage = new JPanel();
