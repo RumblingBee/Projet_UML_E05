@@ -21,7 +21,7 @@ public class testsControleurCreation {
     JTextField prixSaisie;
 
     @Before
-    public void setUp() {
+    public void setUp(){
         cat = new Catalogue();
         cat.clear();
         cat.addProduit("produitDeTest",10,10);

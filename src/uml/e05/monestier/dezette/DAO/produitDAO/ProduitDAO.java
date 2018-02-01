@@ -4,11 +4,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uml.e05.monestier.dezette.DAO;
+package uml.e05.monestier.dezette.DAO.produitDAO;
 
 
 
 
+import uml.e05.monestier.dezette.controleurs.ControleurPrincipal1;
 import uml.e05.monestier.dezette.metier.I_Produit;
 import uml.e05.monestier.dezette.metier.Produit;
 
@@ -20,45 +21,27 @@ import java.util.List;
  *
  * @author clement
  */
-public class DAO implements I_DAO {
+public class ProduitDAO implements I_produitDAO {
 
     private Connection cn = null;
     private ResultSet rs = null;
     private Statement st = null;
 
-
-    private String url = "jdbc:oracle:thin:@162.38.222.149:1521:iut";
-    private String username = "monestierc";
-    private String password = "1105018199N";
-
-    public DAO() {
-
-
-     try{
-
-         Class.forName("oracle.jdbc.OracleDriver");
-         try {
-             cn = DriverManager.getConnection(url,username,password);
-         }catch (SQLException e){
-             e.printStackTrace();
-         }
-
-     }catch (Exception e){
-         e.printStackTrace();
-     }
-
+    public ProduitDAO(Connection factoryCn) {
+        cn = factoryCn;
     }
 
-
-
     @Override
-    public List<I_Produit> findAll(){
+    public List<I_Produit> findAll(String nomCatalogue){
 
         List<I_Produit> produits = new ArrayList<>();
+        PreparedStatement selectProduitPreparedStatement = null;
 
         try {
-            st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery("SELECT * FROM PRODUITS");
+            String selectProductString = "SELECT * from PRODUITS JOIN CATALOGUES C2 ON PRODUITS.CATALOGUE = C2.CODECATALOGUE WHERE NOMCATALOGUE=?";
+            selectProduitPreparedStatement= cn.prepareStatement(selectProductString);
+            selectProduitPreparedStatement.setString(1,nomCatalogue);
+            rs=selectProduitPreparedStatement.executeQuery();
             peuplerCatalogue(produits);
 
         }catch(SQLException e){
@@ -77,21 +60,26 @@ public class DAO implements I_DAO {
     @Override
     public void create(I_Produit produit){
         PreparedStatement insertProduitPreparedStatement = null;
+        String nomCatalogue = ControleurPrincipal1.getInstance().getCatalogueSelectionne();
+        int idCatalogue = getIdCatalogue(nomCatalogue);
 
         try{
-            String insertProduitString = "CALL INSERTPRODUIT(?,?,?)";
+            String insertProduitString = "CALL INSERTPRODUIT(?,?,?,?)";
             insertProduitPreparedStatement = cn.prepareStatement(insertProduitString);
 
             insertProduitPreparedStatement.setString(1,produit.getNom());
             insertProduitPreparedStatement.setDouble(2,produit.getPrixUnitaireHT());
             insertProduitPreparedStatement.setInt(3,produit.getQuantite());
+            insertProduitPreparedStatement.setInt(4,idCatalogue);
+
 
             insertProduitPreparedStatement.executeQuery();
+
+
 
         }catch (SQLException e){
             e.printStackTrace();
         }
-
     }
     @Override
     public void deleteProduit(I_Produit produit){
@@ -129,6 +117,25 @@ public class DAO implements I_DAO {
         }catch (SQLException e){
             e.printStackTrace();
         }
+
+    }
+    private int getIdCatalogue(String nomCatalogue){
+
+        PreparedStatement selectProduitPreparedStatement = null;
+
+        int id=0;
+        try {
+            String selectIdCatalogueString = "SELECT CODECATALOGUE from CATALOGUES WHERE NOMCATALOGUE = ? ";
+            selectProduitPreparedStatement= cn.prepareStatement(selectIdCatalogueString);
+            selectProduitPreparedStatement.setString(1,nomCatalogue);
+            rs=selectProduitPreparedStatement.executeQuery();
+            rs.next();
+            id= rs.getInt(1);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return id;
 
     }
 
