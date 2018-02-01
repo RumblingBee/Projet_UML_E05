@@ -14,7 +14,9 @@ public class ControleurDAO {
     private I_produitDAO produitDAO;
 
 
+
     public ControleurDAO() {
+
 
         catalogueDAO = DAOFactoryAbstract.getInstance().createCatalogueDAO();
         produitDAO=DAOFactoryAbstract.getInstance().createProduitDAO();
@@ -23,6 +25,8 @@ public class ControleurDAO {
 
     public List<I_Catalogue> recupererListeCatalogues(){
         return catalogueDAO.findAll();
+    }
+    public List<I_Produit> recupererListeProduits(String  nomCatalogue){ return produitDAO.findAll(nomCatalogue);
     }
 
     public String[] recupererNomCatalogues(){

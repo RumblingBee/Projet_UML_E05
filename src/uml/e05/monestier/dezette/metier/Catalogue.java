@@ -35,6 +35,7 @@ public class Catalogue implements I_Catalogue {
     public Catalogue(String nom) {
         this.nom = nom;
         produits =  new ArrayList<>();
+
     }
     
 
