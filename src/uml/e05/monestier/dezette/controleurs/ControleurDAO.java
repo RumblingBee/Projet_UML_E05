@@ -4,6 +4,7 @@ import uml.e05.monestier.dezette.DAO.catalogueDAO.I_catalogueDAO;
 import uml.e05.monestier.dezette.DAO.produitDAO.I_produitDAO;
 import uml.e05.monestier.dezette.factory.DAOFactoryAbstract;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
+import uml.e05.monestier.dezette.metier.I_Produit;
 
 import java.util.List;
 
@@ -13,9 +14,10 @@ public class ControleurDAO {
     private I_produitDAO produitDAO;
 
 
-    protected ControleurDAO() {
+    public ControleurDAO() {
 
         catalogueDAO = DAOFactoryAbstract.getInstance().createCatalogueDAO();
+        produitDAO=DAOFactoryAbstract.getInstance().createProduitDAO();
 
     }
 
@@ -60,5 +62,21 @@ public class ControleurDAO {
         return catalogueDAO.getCountCatalogue();
     }
 
+    public void addProduit(I_Produit produit){
+        produitDAO.create(produit);
+    }
 
+
+    public void modifierStockProduit(I_Produit produit) {
+        produitDAO.modifierStockProduit(produit);
+    }
+
+    public List<I_Produit> findAll(String nomCatalogue) {
+        return produitDAO.findAll(nomCatalogue);
+    }
+
+    public void close() {
+        produitDAO.close();
+        catalogueDAO.close();
+    }
 }

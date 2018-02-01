@@ -8,6 +8,7 @@ package uml.e05.monestier.dezette.metier;
 
 import uml.e05.monestier.dezette.DAO.produitDAO.ProduitDAO;
 import uml.e05.monestier.dezette.DAO.produitDAO.I_produitDAO;
+import uml.e05.monestier.dezette.controleurs.ControleurDAO;
 import uml.e05.monestier.dezette.factory.DAOFactoryAbstract;
 import uml.e05.monestier.dezette.factory.FactoryDAORelationnel;
 
@@ -22,22 +23,18 @@ import java.util.List;
 public class Catalogue implements I_Catalogue {
 
     private List<I_Produit> produits;
-    private I_produitDAO connexion;
+    private ControleurDAO connexion=new ControleurDAO();
     private String nom;
 
     public Catalogue() {
         this.nom = "Catalogue sans nom";
         produits =  new ArrayList<>();
-        connexion= DAOFactoryAbstract.getInstance().createProduitDAO();
 
 
     }
     public Catalogue(String nom) {
         this.nom = nom;
         produits =  new ArrayList<>();
-        connexion=DAOFactoryAbstract.getInstance().createProduitDAO();
-
-
     }
     
 
@@ -45,7 +42,7 @@ public class Catalogue implements I_Catalogue {
     public boolean addProduit(I_Produit produit) {
       if(produitValide(produit)){
            produits.add(produit);
-           connexion.create(produit);
+           connexion.addProduit(produit);
 
            return true;
       }
