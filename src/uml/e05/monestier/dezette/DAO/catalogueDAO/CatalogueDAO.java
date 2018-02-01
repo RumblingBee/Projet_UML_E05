@@ -88,7 +88,7 @@ public class CatalogueDAO implements I_catalogueDAO {
     private void getInfosCatalogues(List<String> catalogues) {
         try {
             st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery("SELECT NOMCATALOGUE,COUNT(IDPRODUIT) FROM CATALOGUES JOIN PRODUITS P ON " +
+            rs = st.executeQuery("SELECT NOMCATALOGUE,COUNT(IDPRODUIT) FROM CATALOGUES LEFT OUTER JOIN PRODUITS P ON " +
                     "CATALOGUES.CODECATALOGUE = P.CATALOGUE GROUP BY NOMCATALOGUE ORDER BY NOMCATALOGUE");
             while(rs.next()){
                 String catalogueInfo = rs.getString(1)+" : "+rs.getInt(2)+ " produits";

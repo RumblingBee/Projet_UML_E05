@@ -9,7 +9,7 @@ public abstract class DAOFactoryAbstract {
     public static DAOFactoryAbstract getInstance() {
         if (ourInstance==null){
 
-            ourInstance=new FactoryDAONoSQL();
+            ourInstance=new FactoryDAORelationnel();
 
         }
         return ourInstance;
