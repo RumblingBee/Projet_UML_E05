@@ -3,6 +3,7 @@ package uml.e05.monestier.dezette.DAO.produitDAO;
 import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import uml.e05.monestier.dezette.controleurs.ControleurPrincipal1;
 import uml.e05.monestier.dezette.metier.I_Produit;
@@ -31,8 +32,11 @@ public class ProduitDAONoSQL implements I_produitDAO {
 
         List<I_Produit> produits = new ArrayList<>();
         MongoCollection<org.bson.Document> collectionProduits = mongoDatabase.getCollection("db_produits");
+        Document query = new Document("codeCatalogue",this.getIdCatalogue(nomCatalogue));
 
-        for(org.bson.Document doc : collectionProduits.find()){
+
+
+        for(org.bson.Document doc : collectionProduits.find(query)){
 
             nomProduit = (String)doc.get("nom");
             quantiteProduit = (int)doc.get("quantite");
