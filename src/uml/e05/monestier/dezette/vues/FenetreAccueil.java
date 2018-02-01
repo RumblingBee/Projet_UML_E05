@@ -13,9 +13,10 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 	private JLabel lbNbCatalogues;
 	private JComboBox cmbSupprimer, cmbSelectionner;
 	private TextArea taDetailCatalogues;
-	private static ControleurPrincipal1 controleurPrincipal1 = ControleurPrincipal1.getInstance();
+	private static ControleurPrincipal1 controleurPrincipal1;
 
 	public FenetreAccueil() {
+		controleurPrincipal1 = ControleurPrincipal1.getInstance();
 		setTitle("Catalogues");
 		setBounds(500, 500, 200, 125);
 		Container contentPane = getContentPane();

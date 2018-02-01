@@ -5,6 +5,7 @@
  */
 package uml.e05.monestier.dezette;
 
+import uml.e05.monestier.dezette.vues.FenetreAccueil;
 import uml.e05.monestier.dezette.vues.FenetrePrincipale;
 
 /**
@@ -18,7 +19,7 @@ public class UMLE05MonestierDezette {
      */
     public static void main(String[] args) {
         
-        FenetrePrincipale fp=new FenetrePrincipale();
+        FenetreAccueil fp=new FenetreAccueil();
         
     }
     
