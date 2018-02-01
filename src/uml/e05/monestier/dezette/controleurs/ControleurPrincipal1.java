@@ -90,7 +90,12 @@ public class ControleurPrincipal1 {
         return suppressionControleur.supprimerProduit(nomProduit, Produits);
     }
     
-    
+    public String[] getInfoCatalogue(){
+        return controleurDAO.getInfosCatalogues();
+    }
+    public int getNbCatalogue(){
+        return controleurDAO.getNbCatalogue();
+    }
 
 
 

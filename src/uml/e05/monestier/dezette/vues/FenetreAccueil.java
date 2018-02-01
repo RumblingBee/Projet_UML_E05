@@ -82,9 +82,9 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 
 		String[] tab  = controleurPrincipal1.getNomCatalogues();
 		modifierListesCatalogues(tab);
-		String[] tab2 = {"Formacia : 6 produits" , "Le Redoutable : 4 produits" , "Noitaicossa : 0 produits" };
+		String[] tab2 = controleurPrincipal1.getInfoCatalogue();
 		modifierDetailCatalogues(tab2);
-		modifierNbCatalogues(3);
+		modifierNbCatalogues(controleurPrincipal1.getNbCatalogue());
 		setVisible(true);
 	}
 
@@ -96,7 +96,7 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			{
 				System.out.println("ajouter le catalogue "+texteAjout);
 				controleurPrincipal1.creerCatalogue(txtAjouter);
-				modifierListesCatalogues(controleurPrincipal1.getNomCatalogues());
+				miseAJourAffichages();
 				txtAjouter.setText(null);
 			}
 		}
@@ -105,7 +105,7 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 			String texteSupprime = (String)cmbSupprimer.getSelectedItem();
 			if (texteSupprime != null) {
 				controleurPrincipal1.supprimerCatalogue(cmbSupprimer);
-				modifierListesCatalogues(controleurPrincipal1.getNomCatalogues());
+				miseAJourAffichages();
 				System.out.println("supprime catalogue " + texteSupprime);
 			}
 		}
@@ -120,6 +120,12 @@ public class FenetreAccueil extends JFrame implements ActionListener {
 				this.dispose();
 			}
 		}	
+	}
+
+	private void miseAJourAffichages() {
+		modifierListesCatalogues(controleurPrincipal1.getNomCatalogues());
+		modifierDetailCatalogues(controleurPrincipal1.getInfoCatalogue());
+		modifierNbCatalogues(controleurPrincipal1.getNbCatalogue());
 	}
 
 	private void modifierListesCatalogues(String[] nomsCatalogues) {

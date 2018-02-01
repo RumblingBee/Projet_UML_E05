@@ -30,7 +30,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 	
 	public FenetrePrincipale() {
-		
+
+		ctrl.buildCatalogue();
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
 		JPanel panAffichage = new JPanel();
@@ -123,7 +124,6 @@ tabProduits = ctrl.getNomProduits();
 	
 	public static void main(String[] args) {
 		new FenetrePrincipale();
-		ctrl.buildCatalogue();
                 
             
 	}

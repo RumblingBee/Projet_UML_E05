@@ -38,11 +38,10 @@ public class ProduitDAO implements I_produitDAO {
         PreparedStatement selectProduitPreparedStatement = null;
 
         try {
-            String selectProductString = "SELECT * from PRODUITS JOIN CATALOGUES C2 ON PRODUITS.CATALOGUE = C2.CODECATALOGUE\n" +
-                    "WHERE NOMCATALOGUE=?";
+            String selectProductString = "SELECT * from PRODUITS JOIN CATALOGUES C2 ON PRODUITS.CATALOGUE = C2.CODECATALOGUE WHERE NOMCATALOGUE=?";
             selectProduitPreparedStatement= cn.prepareStatement(selectProductString);
             selectProduitPreparedStatement.setString(1,nomCatalogue);
-            selectProduitPreparedStatement.executeQuery();
+            rs=selectProduitPreparedStatement.executeQuery();
             peuplerCatalogue(produits);
 
         }catch(SQLException e){

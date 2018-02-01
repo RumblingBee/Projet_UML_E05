@@ -30,4 +30,14 @@ public class MockCatalogueDAO implements I_catalogueDAO {
     public String[] recupererNomsCatalogues() {
         return new String[0];
     }
+
+    @Override
+    public String[] toStringAllCatalogue() {
+        return new String[0];
+    }
+
+    @Override
+    public int getCountCatalogue() {
+        return 0;
+    }
 }

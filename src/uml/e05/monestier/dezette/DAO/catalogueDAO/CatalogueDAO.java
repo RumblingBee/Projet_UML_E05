@@ -41,6 +41,8 @@ public class CatalogueDAO implements I_catalogueDAO {
         }
     }
 
+
+
     public String[] recupererNomsCatalogues(){
         String[] nomsCatalogues = new String[findAll().size()];
 
@@ -50,6 +52,52 @@ public class CatalogueDAO implements I_catalogueDAO {
            nomsCatalogues[i] = catalogues.get(i).getNomCatalogue();
         }
         return nomsCatalogues;
+    }
+
+    @Override
+    public String[] toStringAllCatalogue() {
+
+        String[] infosCatalogues=new String[findAll().size()];
+        List<String> catalogues=new ArrayList<>();
+        getInfosCatalogues(catalogues);
+        formatageInfosCatalogue(infosCatalogues, catalogues);
+        return infosCatalogues;
+    }
+
+    @Override
+    public int getCountCatalogue() {
+        int nbCatalogue=-1;
+        try {
+            st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = st.executeQuery("SELECT count(*) FROM CATALOGUES");
+            rs.next();
+            nbCatalogue=rs.getInt(1);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return nbCatalogue;
+    }
+
+    private void formatageInfosCatalogue(String[] infosCatalogues, List<String> catalogues) {
+        for (int i = 0; i < findAll().size(); i++) {
+            infosCatalogues[i] = catalogues.get(i);
+        }
+    }
+
+    private void getInfosCatalogues(List<String> catalogues) {
+        try {
+            st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = st.executeQuery("SELECT NOMCATALOGUE,COUNT(IDPRODUIT) FROM CATALOGUES JOIN PRODUITS P ON " +
+                    "CATALOGUES.CODECATALOGUE = P.CATALOGUE GROUP BY NOMCATALOGUE ORDER BY NOMCATALOGUE");
+            while(rs.next()){
+                String catalogueInfo = rs.getString(1)+" : "+rs.getInt(2)+ " produits";
+                catalogues.add(catalogueInfo);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
 
