@@ -38,6 +38,8 @@ public class Catalogue implements I_Catalogue {
         connexion=DAOFactoryAbstract.getInstance().createProduitDAO();
 
 
+
+
     }
     
 

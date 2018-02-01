@@ -30,9 +30,6 @@ public class CatalogueDAONoSQL implements I_catalogueDAO {
 
 
         List<I_Catalogue> catalogues = new ArrayList<>();
-
-
-
 MongoCollection<Document> collectionCat = mongoDatabase.getCollection("db_catalogues");
 
 for(Document doc : collectionCat.find()){

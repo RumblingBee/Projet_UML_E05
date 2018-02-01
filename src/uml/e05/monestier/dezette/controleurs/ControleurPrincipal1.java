@@ -9,7 +9,7 @@ package uml.e05.monestier.dezette.controleurs;
 import javax.swing.*;
 
 
-
+import uml.e05.monestier.dezette.DAO.produitDAO.ProduitDAO;
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
 
