@@ -1,13 +1,13 @@
 package uml.e05.monestier.dezette.DAO.catalogueDAO;
 
-import com.mongodb.*;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import net.sf.json.JSONObject;
 import org.bson.Document;
 import uml.e05.monestier.dezette.metier.Catalogue;
 import uml.e05.monestier.dezette.metier.I_Catalogue;
-
 
 import java.util.ArrayList;
 import java.util.List;

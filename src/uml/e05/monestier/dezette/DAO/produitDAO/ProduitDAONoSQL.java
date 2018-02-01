@@ -1,17 +1,12 @@
 package uml.e05.monestier.dezette.DAO.produitDAO;
 
 import com.mongodb.*;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.types.ObjectId;
 import uml.e05.monestier.dezette.controleurs.ControleurPrincipal1;
-import uml.e05.monestier.dezette.metier.Catalogue;
-import uml.e05.monestier.dezette.metier.I_Catalogue;
 import uml.e05.monestier.dezette.metier.I_Produit;
 import uml.e05.monestier.dezette.metier.Produit;
-
-import javax.swing.text.Document;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,11 +62,12 @@ public class ProduitDAONoSQL implements I_produitDAO {
 
     @Override
     public void deleteProduit(I_Produit produit) {
-
+mongoDatabase.getCollection("db_produits").deleteOne(new org.bson.Document("nom",produit.getNom()));
     }
 
     @Override
     public void modifierStockProduit(I_Produit produit) {
+        mongoDatabase.getCollection("db_produits").updateOne(new org.bson.Document("nom",produit.getNom()), new org.bson.Document("$set",new org.bson.Document("quantite",produit.getQuantite() )));
 
     }
 
