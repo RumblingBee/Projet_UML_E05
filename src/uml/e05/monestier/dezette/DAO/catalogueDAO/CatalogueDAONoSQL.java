@@ -35,12 +35,8 @@ MongoCollection<Document> collectionCat = mongoDatabase.getCollection("db_catalo
 for(Document doc : collectionCat.find()){
     I_Catalogue catalogue = new Catalogue((String)doc.get("nomCatalogue"));
     catalogues.add(catalogue);
+
 }
-
-
-
-
-
         return catalogues;
     }
 
@@ -77,11 +73,38 @@ mongoDatabase.getCollection("db_catalogues").deleteOne(new Document("nomCatalogu
 
     @Override
     public String[] toStringAllCatalogue() {
-        return new String[0];
-    }
 
+        String[] infosCatalogues=new String[findAll().size()];
+        List<String> catalogues=new ArrayList<>();
+        getInfosCatalogues(catalogues);
+        formatageInfosCatalogue(infosCatalogues, catalogues);
+        return infosCatalogues;
+
+    }
+    private void getInfosCatalogues(List<String> catalogues) {
+
+        MongoCollection<Document> collectionCat = mongoDatabase.getCollection("db_catalogues");
+
+        MongoCollection<Document> collectionProd = mongoDatabase.getCollection("db_produits");
+
+        for(Document doc : collectionCat.find()){
+            Document query = new Document("codeCatalogue",doc.get("_id"));
+            int i = (int) collectionProd.count(query);
+            catalogues.add((String)doc.get("nomCatalogue")+" : "+collectionProd.count(query)+" produits ");
+
+        }
+            }
+    private void formatageInfosCatalogue(String[] infosCatalogues, List<String> catalogues) {
+        for (int i = 0; i < findAll().size(); i++) {
+            infosCatalogues[i] = catalogues.get(i);
+        }
+    }
     @Override
     public int getCountCatalogue() {
-        return 0;
+
+        MongoCollection<Document> collectionCat = mongoDatabase.getCollection("db_catalogues");
+
+int i = (int) collectionCat.count();
+        return i;
     }
 }
